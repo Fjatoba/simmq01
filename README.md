@@ -10,7 +10,7 @@ Atividade em dupla com análise no **jamovi**: 9 partes, 21 questões, 110 minut
 |---|---|
 | [`apresentacao.html`](apresentacao.html) | Porta de entrada: objetivo, passo a passo, distribuição do tempo, o que se espera das respostas e perguntas frequentes. |
 | [`index.html`](index.html) | O simulado. As duplas escolhem a versão (A–H), baixam a base, respondem (salvamento automático no navegador) e geram o PDF de entrega. |
-| [`glossario.html`](glossario.html) | Glossário didático com 73 termos, tabela de símbolos e busca. |
+| [`glossario.html`](glossario.html) | Glossário didático com 74 termos, tabela de símbolos e busca. |
 | [`aula-revisao.html`](aula-revisao.html) | Aula de revisão de 60 minutos, da pergunta à conclusão. |
 | [`caderno_simulado_para_impressao.pdf`](caderno_simulado_para_impressao.pdf) | Caderno em branco para impressão. |
 
