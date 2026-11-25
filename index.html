@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Simulado online em dupla — Métodos Quantitativos">
+<title>Simulado de revisão — Métodos Quantitativos</title>
+<style>
+:root{
+  --ink:#17222b; --muted:#5a6976; --brand:#21606f; --brand-dark:#163f4b; --brand-soft:#e7f1f3;
+  --line:#d3dfe3; --paper:#fff; --canvas:#f2f5f6; --accent:#b4531a; --accent-soft:#fdf0e7;
+  --ok:#2d7a4a; --ok-soft:#e5f4ea; --warn:#8a5a00; --warn-soft:#fff6dc; --radius:.7rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:var(--canvas);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;line-height:1.55;font-size:16px}
+a{color:var(--brand)}
+code{background:var(--brand-soft);padding:.05rem .35rem;border-radius:.3rem;font-size:.9em}
+button{font:inherit;cursor:pointer}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Barra superior */
+.topbar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:.6rem max(1rem,calc((100vw - 1180px)/2));color:#fff;background:var(--brand-dark);box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.topbar .title{font-weight:700}
+.topbar .chip-version{padding:.15rem .6rem;border-radius:999px;background:rgba(255,255,255,.16);font-size:.85rem}
+.topbar .spacer{flex:1}
+.save-status{font-size:.82rem;opacity:.92}
+.save-status::before{content:"●";margin-right:.35rem;color:#8fd3a5}
+.save-status.pending::before{color:#ffd27a}
+.save-status.error::before{color:#ff9b8a}
+.btn{border:1px solid rgba(255,255,255,.5);border-radius:.45rem;padding:.32rem .6rem;font-size:.88rem;white-space:nowrap;color:#fff;background:transparent}
+.btn:hover{background:rgba(255,255,255,.12)}
+.btn.primary{background:#fff;color:var(--brand-dark);border-color:#fff;font-weight:600}
+.btn.primary:hover{background:#e9f3f5}
+.btn.danger{border-color:rgba(255,190,170,.6);color:#ffd9cc}
+
+.layout{display:grid;grid-template-columns:260px minmax(0,860px);gap:1.5rem;max-width:1180px;margin:1.5rem auto;padding:0 1rem;align-items:start}
+/* Sumário com progresso */
+.toc{position:sticky;top:4.4rem;max-height:calc(100vh - 5.5rem);overflow:auto;padding:1rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper)}
+.toc h2{margin:0 0 .3rem;font-size:1rem;color:var(--brand-dark);border:0;padding:0}
+.progress-bar{height:.5rem;border-radius:999px;background:var(--brand-soft);overflow:hidden;margin:.4rem 0 .2rem}
+.progress-bar span{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.progress-text{font-size:.82rem;color:var(--muted);margin-bottom:.7rem}
+.toc a{display:flex;justify-content:space-between;gap:.5rem;padding:.32rem .4rem;border-radius:.4rem;text-decoration:none;font-size:.9rem;color:var(--ink)}
+.toc a:hover{background:var(--brand-soft)}
+.toc a .pts{color:var(--muted);font-size:.78rem;white-space:nowrap}
+.toc a.done .lbl::before{content:"✓ ";color:var(--ok);font-weight:700}
+.toc a.partial .lbl::before{content:"◐ ";color:var(--warn)}
+.toc .sep{border-top:1px solid var(--line);margin:.5rem 0}
+
+main{min-width:0}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem 2rem;margin-bottom:1.25rem;box-shadow:0 4px 18px rgba(20,50,60,.05)}
+h1{margin:0 0 .3rem;color:var(--brand-dark);font-size:1.9rem;line-height:1.15}
+h2{margin:0 0 .8rem;color:var(--brand-dark);font-size:1.35rem;scroll-margin-top:5rem}
+h3{margin:1.3rem 0 .5rem;color:var(--brand);font-size:1.08rem;scroll-margin-top:5rem}
+p{margin:.55rem 0}
+.lead{color:var(--muted);font-size:1.05rem;margin:0 0 1rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0 1.2rem}
+.meta span{padding:.25rem .7rem;border-radius:999px;background:var(--brand-soft);color:var(--brand-dark);font-size:.88rem;font-weight:600}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1rem 0 .2rem;padding:0;list-style:none;counter-reset:s}
+.steps li{position:relative;padding:.8rem .8rem .8rem 2.7rem;border:1px solid var(--line);border-radius:.6rem;background:#fbfdfd;font-size:.9rem;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:.7rem;top:.75rem;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;font-size:.85rem;display:grid;place-items:center}
+.steps strong{display:block;color:var(--brand-dark)}
+
+.callout{padding:.8rem 1rem;border-left:4px solid var(--brand);background:var(--brand-soft);border-radius:0 .5rem .5rem 0;margin:.8rem 0}
+.callout.warn{border-color:var(--accent);background:var(--accent-soft)}
+.callout.ok{border-color:var(--ok);background:var(--ok-soft)}
+
+.field-label{display:block;color:var(--brand-dark);font-weight:600;font-size:.9rem}
+.field-help{display:block;color:var(--muted);font-weight:400;font-size:.8rem}
+.answer-control{width:100%;margin-top:.3rem;padding:.6rem .7rem;border:1px solid #9bb3bb;border-radius:.45rem;color:var(--ink);background:#fff;font:inherit}
+.answer-control:focus{outline:3px solid rgba(33,96,111,.2);border-color:var(--brand)}
+.answer-control[readonly]{background:var(--brand-soft)}
+textarea.answer-control{min-height:6.5rem;resize:vertical;line-height:1.45}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+
+/* Versão */
+.version-picker{display:grid;grid-template-columns:repeat(8,1fr);gap:.45rem;margin:.6rem 0}
+.version-picker button{padding:.7rem 0;border:1px solid #9bb3bb;border-radius:.5rem;background:#fff;color:var(--brand-dark);font-weight:700;font-size:1.05rem}
+.version-picker button:hover{border-color:var(--brand)}
+.version-picker button[aria-pressed="true"]{background:var(--brand-dark);color:#fff;border-color:var(--brand-dark)}
+.my-version{display:none;margin-top:1rem;padding:1rem 1.2rem;border:2px solid var(--brand);border-radius:.7rem;background:#f8fcfd}
+.my-version.show{display:block}
+.my-version h3{margin:0 0 .6rem}
+.kv{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:.4rem 0 .8rem}
+.kv div{padding:.55rem .7rem;border-radius:.5rem;background:#fff;border:1px solid var(--line)}
+.kv small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.03em}
+.kv b{font-size:1.02rem;color:var(--brand-dark)}
+.dl-row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.dl{display:inline-block;padding:.55rem .9rem;border-radius:.5rem;background:var(--brand);color:#fff;text-decoration:none;font-weight:600}
+.dl:hover{background:var(--brand-dark)}
+.dl.secondary{background:#fff;color:var(--brand-dark);border:1px solid #9bb3bb}
+
+/* Tabelas */
+.table-wrap{overflow-x:auto;margin:.8rem 0 1rem}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{padding:.5rem .6rem;border:1px solid var(--line);vertical-align:top;text-align:left}
+th{color:#fff;background:var(--brand)}
+tbody tr:nth-child(even){background:#f6fafb}
+tr.mine{background:#fff4d6 !important;outline:2px solid #e0b24a}
+tr.not-mine{opacity:.5}
+.table-answer{min-width:5rem;margin:0;padding:.35rem .45rem}
+
+/* Partes e questões */
+.part-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:2px solid var(--brand);padding-bottom:.4rem;margin-bottom:.9rem}
+.part-head h2{margin:0}
+.part-head .pts{color:var(--muted);font-size:.9rem;white-space:nowrap}
+.part-intro{color:var(--ink)}
+.q{margin:1.1rem 0 1.4rem;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:.65rem;background:#fcfefe}
+.q-head{display:flex;gap:.7rem;align-items:flex-start}
+.q-num{flex:none;min-width:2.6rem;padding:.15rem .4rem;border-radius:.4rem;background:var(--brand);color:#fff;font-weight:700;text-align:center;font-size:.9rem}
+.q-text{flex:1}
+.q-pts{flex:none;padding:.1rem .5rem;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:.8rem;font-weight:700;white-space:nowrap}
+.q.answered{border-color:#a9d3b6}
+.q.answered .q-num{background:var(--ok)}
+.report{display:flex;flex-wrap:wrap;gap:.35rem;margin:.55rem 0 .2rem;padding:0;list-style:none}
+.report li{font-size:.78rem;padding:.12rem .5rem;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--muted)}
+.report li::before{content:"□ ";}
+details.hint{margin:.55rem 0;border:1px dashed #9bb3bb;border-radius:.5rem;background:#fff}
+details.hint summary{padding:.45rem .7rem;cursor:pointer;color:var(--brand-dark);font-weight:600;font-size:.88rem}
+details.hint div{padding:0 .9rem .7rem;font-size:.9rem}
+details.hint ol,details.hint ul{margin:.3rem 0;padding-left:1.2rem}
+.counter{display:flex;justify-content:flex-end;gap:.8rem;margin-top:.25rem;color:var(--muted);font-size:.78rem}
+.counter .target.ok{color:var(--ok);font-weight:600}
+.counter .target.out{color:var(--accent);font-weight:600}
+.print-answer{display:none}
+
+.checklist{list-style:none;padding:0;margin:.5rem 0}
+.checklist li{margin:.35rem 0}
+.checklist label{display:flex;gap:.6rem;align-items:flex-start;cursor:pointer}
+.checklist input{margin-top:.3rem;width:1.05rem;height:1.05rem;accent-color:var(--ok)}
+
+details.box{border:1px solid var(--line);border-radius:.6rem;margin:.8rem 0;background:#fff}
+details.box>summary{padding:.7rem 1rem;cursor:pointer;font-weight:600;color:var(--brand-dark)}
+details.box>div{padding:0 1rem 1rem}
+.rules li{margin:.3rem 0}
+
+.why{margin:0 0 .45rem;padding:.4rem .65rem;border-radius:.4rem;background:#f1f7f8;color:var(--brand-dark);font-size:.9rem}
+.why b{color:var(--brand)}
+.q-text ol,.q-text ul{margin:.35rem 0 .2rem;padding-left:1.35rem}.q-text li{margin:.18rem 0}.q-text p{margin:.35rem 0}
+.aula{margin:-.3rem 0 .9rem;font-size:.88rem;color:var(--muted)}.aula b{color:var(--accent)}
+a.gl{color:inherit;text-decoration:underline dotted var(--brand);text-underline-offset:3px}a.gl:hover{color:var(--brand)}
+.topbar a.nav{color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;opacity:.92}.topbar a.nav:hover{text-decoration:underline}
+@media print{.why,.aula{display:none}a.gl{text-decoration:none}}
+footer{color:var(--muted);font-size:.85rem;text-align:center;margin:1rem 0 2rem}
+#import-file{display:none}
+
+@media (max-width:900px){
+  .layout{display:block;margin-top:1rem}
+  .toc{position:static;max-height:none;margin-bottom:1rem}
+  .panel{padding:1.2rem 1rem}
+  .steps{grid-template-columns:1fr 1fr}
+  .version-picker{grid-template-columns:repeat(4,1fr)}
+  .kv{grid-template-columns:1fr 1fr}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .topbar{position:static}
+  .topbar .spacer{display:none}
+  .toc a,.toc .sep{display:none}
+  .toc{padding:.7rem 1rem}
+}
+@media print{
+  @page{size:A4;margin:1.3cm}
+  body{background:#fff;font-size:10.5pt}
+  .topbar,.toc,.no-print,details.hint,.report,.counter,.version-picker,.dl-row{display:none !important}
+  .layout{display:block;max-width:none;margin:0;padding:0}
+  .panel{border:0;box-shadow:none;padding:0;margin:0 0 .6cm}
+  .q{break-inside:avoid;border-color:#999;background:#fff}
+  .page-break{break-before:page}
+  textarea.answer-control{display:none}
+  .print-answer{display:block;white-space:pre-wrap;border:1px solid #777;border-radius:.3rem;padding:.4rem .5rem;min-height:2.2rem;margin-top:.3rem}
+  .answer-control{border:1px solid #777}
+  tr.not-mine{opacity:1}
+  tr.mine{outline:0}
+  .my-version{display:block;border-color:#777}
+  a{color:inherit;text-decoration:none}
+  .steps,.callout.warn{display:none !important}
+  ::placeholder{color:transparent}
+}
+</style>
+</head>
+<body>
+<nav class="topbar" aria-label="Barra de ações">
+  <span class="title">Simulado de revisão</span>
+  <a class="nav" href="apresentacao.html" target="_blank" rel="noopener">Apresentação</a>
+  <a class="nav" href="glossario.html" target="_blank" rel="noopener">Glossário</a>
+  <a class="nav" href="aula-revisao.html" target="_blank" rel="noopener">Aula de revisão</a>
+  <span id="topbar-version" class="chip-version">Versão não escolhida</span>
+  <span class="spacer"></span>
+  <span id="save-status" class="save-status" role="status">Pronto para preencher</span>
+  <button id="download-answers" class="btn" type="button" title="Baixa um arquivo .json com todas as respostas">⤓ Cópia de segurança</button>
+  <button id="import-answers" class="btn" type="button" title="Recupera respostas de um arquivo .json baixado antes">⤒ Restaurar</button>
+  <input id="import-file" type="file" accept="application/json,.json">
+  <button class="btn primary" type="button" onclick="window.print()">Salvar PDF para entregar</button>
+  <button id="clear-form" class="btn danger" type="button">Apagar</button>
+</nav>
+
+<div class="layout">
+<aside class="toc" aria-label="Sumário e progresso">
+  <h2>Seu progresso</h2>
+  <div class="progress-bar" aria-hidden="true"><span id="progress-fill"></span></div>
+  <div id="completion-status" class="progress-text">0 de 0 respostas</div>
+  <a href="#inicio"><span class="lbl">Início e identificação</span></a>
+  <a href="#regras"><span class="lbl">Regras e variáveis</span></a>
+  <div class="sep"></div>
+  <a href="#parte-1" data-toc="1"><span class="lbl">1 · Decisões prévias</span><span class="pts">4,0</span></a>
+  <a href="#parte-2" data-toc="2"><span class="lbl">2 · Preparação da base</span><span class="pts">0,5</span></a>
+  <a href="#parte-3" data-toc="3"><span class="lbl">3 · Descrição</span><span class="pts">1,8</span></a>
+  <a href="#parte-4" data-toc="4"><span class="lbl">4 · Escore z, IC e teste</span><span class="pts">2,2</span></a>
+  <a href="#parte-5" data-toc="5"><span class="lbl">5 · Categóricas e ordinais</span><span class="pts">2,2</span></a>
+  <a href="#parte-6" data-toc="6"><span class="lbl">6 · Correlação</span><span class="pts">1,8</span></a>
+  <a href="#parte-7" data-toc="7"><span class="lbl">7 · Comparação de grupos</span><span class="pts">3,4</span></a>
+  <a href="#parte-8" data-toc="8"><span class="lbl">8 · Sensibilidade</span><span class="pts">1,6</span></a>
+  <a href="#parte-9" data-toc="9"><span class="lbl">9 · Síntese</span><span class="pts">1,0</span></a>
+  <a href="#entrega" data-toc="10"><span class="lbl">Entrega e autoria</span><span class="pts">1,5</span></a>
+</aside>
+
+<main>
+<form id="simulado-form" autocomplete="off">
+
+<!-- ================= INÍCIO ================= -->
+<section class="panel" id="inicio">
+  <h1>Simulado de revisão integrada de Métodos Quantitativos</h1>
+  <p class="lead">Atividade em dupla com análise no jamovi</p>
+  <div class="meta"><span>25 de novembro de 2026</span><span>110 minutos (sugerido)</span><span>20 pontos</span><span>9 partes · 21 questões</span></div>
+
+  <ol class="steps">
+    <li><strong>Escolham a versão</strong>Cliquem numa letra abaixo e baixem o CSV.</li>
+    <li><strong>Abram no jamovi</strong>Ajustem os níveis de medida e salvem o .omv.</li>
+    <li><strong>Respondam aqui</strong>As respostas são salvas sozinhas neste navegador.</li>
+    <li><strong>Entreguem</strong>PDF desta página + arquivo .omv no Classroom.</li>
+  </ol>
+
+  <div class="callout"><strong>Primeira vez aqui?</strong> Leiam a <a href="apresentacao.html" target="_blank" rel="noopener">apresentação do simulado</a>, com o passo a passo e exemplos do que se espera. Dúvida sobre um termo ou símbolo? Os termos sublinhados levam ao <a href="glossario.html" target="_blank" rel="noopener">glossário</a>. Para rever o conteúdo, usem a <a href="aula-revisao.html" target="_blank" rel="noopener">aula de revisão</a> e os <strong>links das aulas no Classroom</strong>.</div>
+  <div class="callout warn"><strong>Atenção:</strong> as respostas ficam salvas <em>só neste navegador e neste computador</em>. Se forem trocar de máquina, usem “Cópia de segurança” e depois “Restaurar” na outra.</div>
+
+  <h3>Identificação da dupla</h3>
+  <div class="grid-2">
+    <label class="field-label" for="nome-1">Integrante 1<input id="nome-1" name="nome-1" class="answer-control" type="text" autocomplete="name"></label>
+    <label class="field-label" for="nome-2">Integrante 2<input id="nome-2" name="nome-2" class="answer-control" type="text" autocomplete="name"></label>
+    <label class="field-label" for="papel-1">Operador(a) do jamovi nas Partes 1 a 5<span class="field-help">O outro integrante atua como revisor(a).</span><input id="papel-1" name="papel-1" class="answer-control" type="text" placeholder="Nome de quem opera"></label>
+    <label class="field-label" for="papel-2">Operador(a) do jamovi nas Partes 6 a 9<span class="field-help">Os papéis se invertem depois da Parte 5.</span><input id="papel-2" name="papel-2" class="answer-control" type="text" placeholder="Nome de quem opera"></label>
+  </div>
+
+  <h3 id="baixar-base">Versão da base</h3>
+  <p>Escolham <strong>uma</strong> versão e usem a mesma base em todas as questões.</p>
+  <div class="version-picker" role="group" aria-label="Escolher versão">
+    <button type="button" data-v="A" aria-pressed="false">A</button><button type="button" data-v="B" aria-pressed="false">B</button><button type="button" data-v="C" aria-pressed="false">C</button><button type="button" data-v="D" aria-pressed="false">D</button><button type="button" data-v="E" aria-pressed="false">E</button><button type="button" data-v="F" aria-pressed="false">F</button><button type="button" data-v="G" aria-pressed="false">G</button><button type="button" data-v="H" aria-pressed="false">H</button>
+  </div>
+  <select id="versao-base" name="versao-base" class="answer-control sr-only" aria-label="Versão da base" tabindex="-1">
+    <option value="">Selecione</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option>
+  </select>
+  <p id="status-versao" class="field-help" role="status">Nenhuma versão selecionada.</p>
+
+  <div id="my-version" class="my-version" aria-live="polite">
+    <h3>Sua versão: <span data-fill="v">–</span></h3>
+    <div class="kv">
+      <div><small>Linhas esperadas</small><b data-fill="n">–</b></div>
+      <div><small>Caso foco (4.1)</small><b data-fill="foco">–</b></div>
+      <div><small>Tarefa da Parte 8</small><b data-fill="tarefa">–</b></div>
+      <div><small>Arquivo .omv</small><b data-fill="omv" style="font-size:.85rem;word-break:break-all">–</b></div>
+    </div>
+    <p style="margin:.2rem 0 .8rem"><small class="field-help">Cinco casos do cálculo manual (3.2):</small> <b data-fill="cinco">–</b></p>
+    <div class="dl-row">
+      <a id="dl-base" class="dl" href="#" download>Baixar base da versão <span data-fill="v">–</span> (CSV)</a>
+      <a class="dl secondary" href="bases_csv/dicionario_variaveis.csv" download>Baixar dicionário de variáveis (CSV)</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REGRAS ================= -->
+<section class="panel" id="regras">
+  <h2>Objetivo, regras e variáveis</h2>
+  <p>A dupla deve tomar decisões estatísticas, executar as análises no jamovi e apresentar conclusões coerentes com os resultados. O arquivo <code>.omv</code> faz parte obrigatória da entrega e deve conter as análises usadas nas respostas.</p>
+  <details class="box" open><summary>Regras de trabalho</summary><div>
+    <ul class="rules">
+      <li>Usem somente o CSV da versão escolhida e mantenham uma cópia dele sem alterações.</li>
+      <li>Durante o simulado, usem esta página, o jamovi, uma calculadora e os materiais autorizados pelo professor. O Classroom serve apenas para a entrega. Não consultem IA generativa, buscas na internet ou respostas externas.</li>
+      <li>Alternem os papéis de operador(a) e revisor(a) depois da Parte 5. Quem revisa confere variáveis, opções marcadas e interpretação.</li>
+      <li>Adotem nível de significância de 5% e intervalos de confiança de 95%, salvo indicação diferente.</li>
+      <li>Relatem estimativa, incerteza, teste, tamanho de efeito e limites da conclusão sempre que forem pedidos.</li>
+      <li>Resultados sem a análise correspondente no arquivo <code>.omv</code> não recebem a pontuação de procedimento.</li>
+      <li>Os dados são sintéticos. Não transformem associações em afirmações causais.</li>
+    </ul>
+  </div></details>
+
+  <details class="box"><summary>Distribuição por versão (todas as versões)</summary><div>
+    <div class="table-wrap"><table id="tabela-versoes"><thead><tr><th>Versão</th><th>N</th><th>Caso foco</th><th>Cinco casos do cálculo manual</th><th>Tarefa</th></tr></thead><tbody>
+      <tr data-row="A"><td>A</td><td>96</td><td>A023</td><td>A005, A020, A038, A059, A080</td><td>1</td></tr>
+      <tr data-row="B"><td>B</td><td>98</td><td>B034</td><td>B008, B025, B045, B061, B084</td><td>2</td></tr>
+      <tr data-row="C"><td>C</td><td>100</td><td>C045</td><td>C011, C030, C052, C063, C088</td><td>3</td></tr>
+      <tr data-row="D"><td>D</td><td>102</td><td>D056</td><td>D014, D035, D059, D065, D092</td><td>4</td></tr>
+      <tr data-row="E"><td>E</td><td>104</td><td>E067</td><td>E017, E040, E066, E067, E096</td><td>1</td></tr>
+      <tr data-row="F"><td>F</td><td>106</td><td>F078</td><td>F020, F045, F069, F073, F100</td><td>2</td></tr>
+      <tr data-row="G"><td>G</td><td>108</td><td>G089</td><td>G023, G050, G071, G080, G104</td><td>3</td></tr>
+      <tr data-row="H"><td>H</td><td>110</td><td>H100</td><td>H026, H055, H073, H087, H108</td><td>4</td></tr>
+    </tbody></table></div>
+  </div></details>
+
+  <details class="box"><summary>Dicionário de variáveis (consulta rápida)</summary><div>
+    <div class="table-wrap"><table><thead><tr><th>Variável</th><th>O que mede</th><th>Nível no jamovi</th><th>Valores / unidade</th></tr></thead><tbody>
+      <tr><td><code>id_estudante</code></td><td>Identificador fictício</td><td>ID</td><td>A001, A002…</td></tr>
+      <tr><td><code>versao</code></td><td>Versão da base</td><td>Nominal</td><td>A a H</td></tr>
+      <tr><td><code>rede_ensino_medio</code></td><td>Rede predominante do ensino médio</td><td>Nominal</td><td>Pública; Privada</td></tr>
+      <tr><td><code>modalidade_ingresso</code></td><td>Modalidade de ingresso</td><td>Nominal</td><td>Ampla concorrência; Cota</td></tr>
+      <tr><td><code>situacao_trabalho</code></td><td>Situação de trabalho remunerado</td><td>Nominal</td><td>Não trabalha; Informal; Formal</td></tr>
+      <tr><td><code>turno_curso</code></td><td>Turno predominante do curso</td><td>Nominal</td><td>Diurno; Noturno</td></tr>
+      <tr><td><code>bolsa_permanencia</code></td><td>Recebe bolsa de permanência</td><td>Nominal</td><td>Não; Sim</td></tr>
+      <tr><td><code>anos_estudo_responsavel</code></td><td>Anos de estudo da pessoa responsável</td><td>Contínua</td><td>4 a 20 anos</td></tr>
+      <tr><td><code>apoio_financeiro</code></td><td>Suficiência do apoio financeiro</td><td>Ordinal</td><td>1 Insuficiente · 2 Parcial · 3 Suficiente</td></tr>
+      <tr><td><code>dificuldade_permanencia</code></td><td>Dificuldade financeira de permanência</td><td>Ordinal</td><td>1 Baixa · 2 Intermediária · 3 Alta</td></tr>
+      <tr><td><code>satisfacao_curso</code></td><td>Satisfação com o curso (item único)</td><td>Ordinal</td><td>1 Muito baixa … 5 Muito alta</td></tr>
+      <tr><td><code>horas_trabalho_semana</code></td><td>Horas de trabalho por semana</td><td>Contínua</td><td>0 a 50 (0 = não trabalha)</td></tr>
+      <tr><td><code>horas_estudo_semana</code></td><td>Horas de estudo por semana</td><td>Contínua</td><td>1 a 27 horas</td></tr>
+      <tr><td><code>deslocamento_min</code></td><td>Tempo de deslocamento até o curso</td><td>Contínua</td><td>Minutos</td></tr>
+      <tr><td><code>renda_familiar_pc</code></td><td>Renda familiar per capita</td><td>Contínua</td><td>Reais</td></tr>
+      <tr><td><code>indice_capital_cultural</code></td><td>Índice didático (não validado)</td><td>Contínua</td><td>10 a 100</td></tr>
+      <tr><td><code>indice_pertencimento</code></td><td>Índice didático (não validado)</td><td>Contínua</td><td>0 a 100</td></tr>
+      <tr><td><code>nota_metodos</code></td><td>Nota em Métodos Quantitativos</td><td>Contínua</td><td>0 a 10</td></tr>
+    </tbody></table></div>
+  </div></details>
+</section>
+
+<!-- ================= PARTE 1 ================= -->
+<section class="panel" id="parte-1" data-part="1">
+  <div class="part-head"><h2>Parte 1 · Decisões antes do jamovi</h2><span class="pts">4,0 pontos</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre níveis de mensuração, hipóteses e escolha de testes. Os links das aulas estão no <strong>Classroom</strong>.</p>
+  <p class="part-intro">Esta parte não exige o software. Respondam com base no dicionário de variáveis.</p>
+
+  <div class="q"><div class="q-head"><span class="q-num">1.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> toda análise começa por saber de quem os dados falam e até onde as conclusões podem chegar.</p><p>Respondam em três partes:</p><ol type="a"><li><b>Unidade de análise:</b> o que cada linha da base representa?</li><li><b>Amostra e população:</b> quem está de fato na base e para qual grupo maior seria tentador generalizar os resultados?</li><li><b>Limite:</b> por que esta base não autoriza essa generalização? Pensem em como os casos foram obtidos e na natureza dos dados.</li></ol></div><span class="q-pts">0,6</span></div>
+    <ul class="report"><li>unidade de análise</li><li>amostra</li><li>população-alvo</li><li>por que não generalizar</li></ul>
+    <textarea id="resposta-01" name="resposta-01" class="answer-control" rows="5" aria-label="Resposta 1.1" placeholder="Escrevam a resposta aqui…"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">1.2</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> o nível de mensuração define quais resumos, gráficos e testes fazem sentido para cada variável.</p><p>Para cada variável abaixo, indiquem (1) o <a class="gl" href="glossario.html#nominal" target="_blank" rel="noopener">nível de mensuração</a> (nominal, ordinal ou contínua) e (2) uma medida-resumo <em>ou</em> um gráfico adequado. Consultem o dicionário de variáveis.</p><p><code>rede_ensino_medio</code> · <code>apoio_financeiro</code> · <code>satisfacao_curso</code> · <code>horas_estudo_semana</code> · <code>nota_metodos</code></p></div><span class="q-pts">0,8</span></div>
+    <ul class="report"><li>5 variáveis classificadas</li><li>1 medida ou gráfico para cada</li></ul>
+    <textarea id="resposta-02" name="resposta-02" class="answer-control" rows="6" aria-label="Resposta 1.2" placeholder="Sugestão de formato: variável — nível — medida/gráfico"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">1.3</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> escolher um teste é casar a pergunta de pesquisa com o tipo das variáveis envolvidas.</p><p>Para cada objetivo, deem o nome da análise principal e justifiquem em uma frase, citando o tipo das variáveis ou o número de grupos:</p><ol type="a"><li>associação entre duas variáveis nominais;</li><li>associação entre duas variáveis ordinais;</li><li>relação linear entre duas variáveis contínuas;</li><li>comparação das médias de dois grupos independentes;</li><li>comparação das médias de três grupos independentes.</li></ol></div><span class="q-pts">0,8</span></div>
+    <textarea id="resposta-03" name="resposta-03" class="answer-control" rows="7" aria-label="Resposta 1.3" placeholder="(a) …&#10;(b) …&#10;(c) …&#10;(d) …&#10;(e) …"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">1.4</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> as hipóteses traduzem a pergunta de pesquisa numa afirmação que pode ser testada com os dados.</p><ol type="a"><li>Escrevam, em palavras, a <a class="gl" href="glossario.html#hipotese-nula" target="_blank" rel="noopener">hipótese nula (H0)</a> e a <a class="gl" href="glossario.html#hipotese-alternativa" target="_blank" rel="noopener">hipótese alternativa (H1)</a> para a relação entre <code>situacao_trabalho</code> e <code>turno_curso</code>.</li><li>Expliquem com suas palavras o que significaria obter <a class="gl" href="glossario.html#p-valor" target="_blank" rel="noopener">p</a> &lt; 0,05 nesse teste. Cuidado: não digam que H0 é verdadeira ou falsa com certeza.</li></ol></div><span class="q-pts">0,6</span></div>
+    <textarea id="resposta-04" name="resposta-04" class="answer-control" rows="6" aria-label="Resposta 1.4" placeholder="H0: …&#10;H1: …&#10;Significado de p &lt; 0,05: …"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">1.5</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> toda decisão tomada a partir de uma amostra pode errar; o importante é saber de que maneira.</p><p>Usando o teste da questão 1.4 como exemplo, descrevam:</p><ol type="a"><li>o que seria um <a class="gl" href="glossario.html#erro-tipo-i" target="_blank" rel="noopener">erro tipo I</a> nessa situação;</li><li>o que seria um <a class="gl" href="glossario.html#erro-tipo-ii" target="_blank" rel="noopener">erro tipo II</a> nessa situação;</li><li>qual dos dois é controlado diretamente pelo nível de significância (α).</li></ol></div><span class="q-pts">0,6</span></div>
+    <textarea id="resposta-05" name="resposta-05" class="answer-control" rows="5" aria-label="Resposta 1.5" placeholder="Escrevam a resposta aqui…"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">1.6</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> um teste só dá resultados confiáveis quando as suas condições de uso são razoavelmente atendidas.</p><ol type="a"><li>Listem os <a class="gl" href="glossario.html#pressuposto" target="_blank" rel="noopener">pressupostos</a> a verificar em cada análise: teste t independente, correlação de Pearson e ANOVA de um fator.</li><li>Para o teste t e para a ANOVA, indiquem qual alternativa ou ajuste usar quando as variâncias dos grupos não forem semelhantes.</li></ol></div><span class="q-pts">0,6</span></div>
+    <textarea id="resposta-06" name="resposta-06" class="answer-control" rows="6" aria-label="Resposta 1.6" placeholder="Teste t: …&#10;Pearson: …&#10;ANOVA: …&#10;Variâncias desiguais: …"></textarea></div>
+</section>
+
+<!-- ================= PARTE 2 ================= -->
+<section class="panel page-break" id="parte-2" data-part="2">
+  <div class="part-head"><h2>Parte 2 · Preparação da base no jamovi</h2><span class="pts">0,5 ponto</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre introdução ao jamovi e preparação de bases. Os links das aulas estão no <strong>Classroom</strong>.</p>
+  <p class="part-intro">Importem o CSV da versão escolhida e ajustem, na aba <strong>Dados → Configurar</strong>, o nível de mensuração de cada variável conforme o dicionário:</p>
+  <ul>
+    <li><code>id_estudante</code> → <strong>ID</strong>.</li>
+    <li><code>versao</code>, <code>rede_ensino_medio</code>, <code>modalidade_ingresso</code>, <code>situacao_trabalho</code>, <code>turno_curso</code> e <code>bolsa_permanencia</code> → <strong>Nominal</strong>.</li>
+    <li><code>apoio_financeiro</code>, <code>dificuldade_permanencia</code> e <code>satisfacao_curso</code> → <strong>Ordinal</strong>. O jamovi costuma importar essas variáveis como contínuas, porque são números: corrijam isso.</li>
+    <li>Todas as demais (horas, anos de estudo, deslocamento, renda, índices e nota) → <strong>Contínua</strong>.</li>
+  </ul>
+  <p>Salvem a sessão com o nome indicado no quadro da sua versão (<code data-fill="omv">revisao_VERSAO_NOMES.omv</code>).</p>
+
+  <div class="q"><div class="q-head"><span class="q-num">2.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> conferir a base logo no início evita que um erro de importação contamine todas as respostas.</p><ol type="a"><li>Registrem a versão, o número de linhas (casos) e o número de variáveis (colunas) que aparecem no jamovi.</li><li>Deem dois exemplos de problemas que surgem quando uma variável é analisada com o nível de mensuração errado.</li></ol></div><span class="q-pts">0,5</span></div>
+    <details class="hint"><summary>Como conferir</summary><div>O número de linhas deve bater com o N da sua versão, mostrado no quadro do início. Se não bater, a importação pode ter falhado.</div></details>
+    <textarea id="resposta-07" name="resposta-07" class="answer-control" rows="5" aria-label="Resposta 2.1" placeholder="Versão: …  Linhas: …  Variáveis: …&#10;Consequência 1: …&#10;Consequência 2: …"></textarea></div>
+</section>
+
+<!-- ================= PARTE 3 ================= -->
+<section class="panel" id="parte-3" data-part="3">
+  <div class="part-head"><h2>Parte 3 · Descrição e diagnóstico</h2><span class="pts">1,8 ponto</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre estatística descritiva e gráficos. Os links das aulas estão no <strong>Classroom</strong>.</p>
+  <p class="part-intro">Analisem <code>horas_estudo_semana</code>, <code>nota_metodos</code> e <code>renda_familiar_pc</code>.</p>
+  <details class="hint"><summary>Onde fazer no jamovi</summary><div><strong>Exploração → Descritivas.</strong> Em <em>Estatísticas</em>, marquem N, média, mediana, desvio-padrão, mínimo, máximo e assimetria. Em <em>Gráficos</em>, marquem histograma, boxplot e gráfico Q-Q.</div></details>
+
+  <div class="table-wrap"><table><thead><tr><th>Variável</th><th>N</th><th>Média</th><th>Mediana</th><th>DP</th><th>Mínimo</th><th>Máximo</th><th>Assimetria</th></tr></thead><tbody>
+    <tr><td><code>horas_estudo_semana</code></td><td><input id="tabela-n-1" class="answer-control table-answer" type="text" inputmode="numeric" aria-label="horas_estudo_semana: N"></td><td><input id="tabela-23" name="tabela-23" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="horas_estudo_semana: média"></td><td><input id="tabela-24" name="tabela-24" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="horas_estudo_semana: mediana"></td><td><input id="tabela-25" name="tabela-25" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="horas_estudo_semana: desvio-padrão"></td><td><input id="tabela-26" name="tabela-26" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="horas_estudo_semana: mínimo"></td><td><input id="tabela-27" name="tabela-27" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="horas_estudo_semana: máximo"></td><td><input id="tabela-28" name="tabela-28" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="horas_estudo_semana: assimetria"></td></tr>
+    <tr><td><code>nota_metodos</code></td><td><input id="tabela-n-2" class="answer-control table-answer" type="text" inputmode="numeric" aria-label="nota_metodos: N"></td><td><input id="tabela-29" name="tabela-29" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="nota_metodos: média"></td><td><input id="tabela-30" name="tabela-30" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="nota_metodos: mediana"></td><td><input id="tabela-31" name="tabela-31" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="nota_metodos: desvio-padrão"></td><td><input id="tabela-32" name="tabela-32" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="nota_metodos: mínimo"></td><td><input id="tabela-33" name="tabela-33" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="nota_metodos: máximo"></td><td><input id="tabela-34" name="tabela-34" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="nota_metodos: assimetria"></td></tr>
+    <tr><td><code>renda_familiar_pc</code></td><td><input id="tabela-n-3" class="answer-control table-answer" type="text" inputmode="numeric" aria-label="renda_familiar_pc: N"></td><td><input id="tabela-35" name="tabela-35" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="renda_familiar_pc: média"></td><td><input id="tabela-36" name="tabela-36" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="renda_familiar_pc: mediana"></td><td><input id="tabela-37" name="tabela-37" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="renda_familiar_pc: desvio-padrão"></td><td><input id="tabela-38" name="tabela-38" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="renda_familiar_pc: mínimo"></td><td><input id="tabela-39" name="tabela-39" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="renda_familiar_pc: máximo"></td><td><input id="tabela-40" name="tabela-40" class="answer-control table-answer" type="text" inputmode="decimal" aria-label="renda_familiar_pc: assimetria"></td></tr>
+  </tbody></table></div>
+  <p class="field-help">Usem vírgula decimal e duas casas (ex.: 12,62).</p>
+
+  <div class="q"><div class="q-head"><span class="q-num">3.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> comparar média e mediana é um jeito rápido de detectar assimetria e valores extremos.</p><ol type="a"><li>Para cada uma das três variáveis, digam se a média está próxima ou distante da mediana.</li><li>Indiquem qual distribuição é mais afetada por um <a class="gl" href="glossario.html#valor-extremo-outlier" target="_blank" rel="noopener">valor extremo</a>.</li><li>Sustentem a resposta com pelo menos <strong>duas evidências</strong> do jamovi, por exemplo um número da tabela e um gráfico.</li></ol></div><span class="q-pts">0,8</span></div>
+    <textarea id="resposta-08" name="resposta-08" class="answer-control" rows="6" aria-label="Resposta 3.1" placeholder="Escrevam a resposta aqui…"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">3.2</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> fazer a conta à mão uma vez mostra o que o software calcula por trás.</p><p>Casos da sua versão: <b data-fill="cinco">ver tabela de distribuição por versão</b>.</p><ol><li>Localizem esses cinco casos na base e anotem o valor de <code>horas_estudo_semana</code> de cada um.</li><li>Calculem a <a class="gl" href="glossario.html#media" target="_blank" rel="noopener">média</a> dos cinco valores.</li><li>Calculem cada <a class="gl" href="glossario.html#desvio" target="_blank" rel="noopener">desvio</a> (valor − média) e elevem-no ao quadrado.</li><li>Somem os quadrados e dividam por n − 1 = 4: esse é a <a class="gl" href="glossario.html#variancia-amostral" target="_blank" rel="noopener">variância amostral</a>.</li><li>Tirem a raiz quadrada: esse é o <a class="gl" href="glossario.html#desvio-padrao-amostral" target="_blank" rel="noopener">desvio-padrão amostral</a>.</li><li>Confiram no jamovi com um filtro temporário (vejam a dica abaixo) e <strong>desliguem o filtro</strong> ao terminar.</li></ol><p>Mostrem as contas na resposta.</p></div><span class="q-pts">1,0</span></div>
+    <details class="hint"><summary>Como montar o filtro no jamovi</summary><div>
+      <ol><li>Aba <strong>Dados → Filtros</strong>, cliquem em <em>+</em>.</li>
+      <li>Digitem a fórmula: <code data-fill="filtro">id_estudante == "A005" or id_estudante == "A020" or …</code></li>
+      <li>Rodem Descritivas com N, média, variância e DP.</li>
+      <li><strong>Desativem o filtro ao terminar.</strong> Um filtro esquecido muda todas as análises seguintes e conta contra vocês na entrega do .omv.</li></ol></div></details>
+    <textarea id="resposta-09" name="resposta-09" class="answer-control" rows="6" aria-label="Resposta 3.2" placeholder="Valores: …&#10;Média: …&#10;Desvios ao quadrado: …&#10;Variância (n − 1): …&#10;DP: …&#10;Conferência no jamovi: …"></textarea></div>
+</section>
+
+<!-- ================= PARTE 4 ================= -->
+<section class="panel page-break" id="parte-4" data-part="4">
+  <div class="part-head"><h2>Parte 4 · Padronização, estimação e teste de uma média</h2><span class="pts">2,2 pontos</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre distribuição normal, escore z, intervalos de confiança e testes de hipótese. Os links das aulas estão no <strong>Classroom</strong>.</p>
+
+  <div class="q"><div class="q-head"><span class="q-num">4.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> o <a class="gl" href="glossario.html#escore-z-padronizacao" target="_blank" rel="noopener">escore z</a> coloca um caso numa régua comum: quantos desvios-padrão ele está acima ou abaixo da média.</p><p>Caso foco da sua versão: <b data-fill="foco">ver tabela de distribuição por versão</b>.</p><ol><li>Encontrem a <code>nota_metodos</code> desse caso.</li><li>Peguem a média e o desvio-padrão de <code>nota_metodos</code> na tabela da Parte 3.</li><li>Calculem z = (nota do caso − média) ÷ desvio-padrão.</li><li>Interpretem: o <strong>sinal</strong> diz se o caso está acima ou abaixo da média; o <strong>valor</strong> diz a quantos desvios-padrão de distância.</li></ol></div><span class="q-pts">0,6</span></div>
+    <textarea id="resposta-10" name="resposta-10" class="answer-control" rows="5" aria-label="Resposta 4.1" placeholder="Nota do caso: …  Média: …  DP: …&#10;z = …&#10;Interpretação: …"></textarea></div>
+
+  <div class="callout"><strong>Para 4.2 e 4.3:</strong> tratem <strong>σ = 6,0 horas</strong> como desvio-padrão populacional conhecido de <code>horas_estudo_semana</code>. É uma suposição didática: o DP amostral da sua base será diferente, e é o σ dado que deve entrar nas contas. Usem a média e o N da sua versão. Estes cálculos são manuais (calculadora); o jamovi não faz teste z com σ conhecido.</div>
+
+  <div class="q"><div class="q-head"><span class="q-num">4.2</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> o <a class="gl" href="glossario.html#intervalo-de-confianca" target="_blank" rel="noopener">intervalo de confiança</a> mostra a precisão da estimativa, e não apenas um número isolado.</p><ol><li>Calculem o <a class="gl" href="glossario.html#erro-padrao" target="_blank" rel="noopener">erro-padrão</a>: EP = σ ÷ √N, com σ = 6 e o N da sua versão.</li><li>Calculem o IC 95%: média ± 1,96 × EP, usando a média de <code>horas_estudo_semana</code> da Parte 3.</li><li>Interpretem o intervalo. Cuidado: μ é um valor fixo. O “95%” se refere ao método, e não à probabilidade de μ estar neste intervalo específico.</li></ol></div><span class="q-pts">0,8</span></div>
+    <ul class="report"><li>erro-padrão</li><li>limites do IC</li><li>interpretação correta</li></ul>
+    <textarea id="resposta-11" name="resposta-11" class="answer-control" rows="5" aria-label="Resposta 4.2" placeholder="EP = …&#10;IC 95% = [ … ; … ]&#10;Interpretação: …"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">4.3</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> o teste de hipótese e o intervalo de confiança são duas formas de olhar a mesma informação.</p><p>Testem H0: μ = 12 horas contra H1: μ ≠ 12 horas (<a class="gl" href="glossario.html#teste-bilateral" target="_blank" rel="noopener">teste bilateral</a>).</p><ol><li>Calculem z = (média − 12) ÷ EP, usando o EP da questão 4.2.</li><li>Obtenham o p-valor bilateral pela tabela da distribuição normal (material da aula, no Classroom).</li><li>Decidam a 5%: rejeitar ou não rejeitar H0.</li><li>Expliquem por que a decisão combina com o IC da 4.2: o valor 12 está dentro ou fora do intervalo?</li></ol></div><span class="q-pts">0,8</span></div>
+    <textarea id="resposta-12" name="resposta-12" class="answer-control" rows="5" aria-label="Resposta 4.3" placeholder="z = …  p = …&#10;Decisão: …&#10;Relação com o IC: …"></textarea></div>
+</section>
+
+<!-- ================= PARTE 5 ================= -->
+<section class="panel" id="parte-5" data-part="5">
+  <div class="part-head"><h2>Parte 5 · Variáveis categóricas e ordinais</h2><span class="pts">2,2 pontos</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre tabelas de contingência, qui-quadrado e correlação ordinal. Os links das aulas estão no <strong>Classroom</strong>.</p>
+
+  <div class="q"><div class="q-head"><span class="q-num">5.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> o <a class="gl" href="glossario.html#qui-quadrado-de-independencia" target="_blank" rel="noopener">qui-quadrado</a> verifica se a distribuição de uma variável muda conforme a categoria da outra.</p><p>Cruzem <code>situacao_trabalho</code> (linhas) com <code>turno_curso</code> (colunas).</p><ol><li>Relatem a tabela com contagens e percentuais por linha.</li><li>Relatem χ², graus de liberdade, p-valor e <a class="gl" href="glossario.html#v-de-cramer" target="_blank" rel="noopener">V de Cramér</a>.</li><li>Verifiquem se alguma <a class="gl" href="glossario.html#frequencia-observada-e-esperada" target="_blank" rel="noopener">frequência esperada</a> é menor que 5.</li><li>Interpretem: o percentual de cada turno muda conforme a situação de trabalho? Usem linguagem de associação (“está associado a”, “varia conforme”), não de causa (“faz”, “provoca”).</li></ol></div><span class="q-pts">1,2</span></div>
+    <details class="hint"><summary>Onde fazer no jamovi</summary><div><strong>Frequências → Tabelas de contingência → Amostras independentes.</strong> Em <em>Estatísticas</em>, marquem χ² e “Phi e V de Cramér”. Em <em>Células</em>, marquem contagens observadas, contagens esperadas e percentuais por linha.</div></details>
+    <ul class="report"><li>tabela com % por linha</li><li>χ², gl, p</li><li>V de Cramér</li><li>esperadas ≥ 5?</li><li>interpretação sem causalidade</li></ul>
+    <textarea id="resposta-13" name="resposta-13" class="answer-control" rows="7" aria-label="Resposta 5.1" placeholder="Escrevam a resposta aqui…"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">5.2</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> em variáveis ordinais importa a ordem das categorias, não a distância entre os números que as codificam.</p><p>Calculem o <a class="gl" href="glossario.html#tau-b-de-kendall" target="_blank" rel="noopener">tau-b de Kendall</a> entre <code>apoio_financeiro</code> e <code>dificuldade_permanencia</code>.</p><ol><li>Relatem o coeficiente e o p-valor.</li><li>Interpretem a <strong>direção</strong> (quando uma variável sobe, a outra tende a subir ou a descer?) e a <strong>intensidade</strong>.</li><li>Expliquem por que Pearson não é a primeira escolha para esses dois itens.</li></ol></div><span class="q-pts">1,0</span></div>
+    <details class="hint"><summary>Onde fazer no jamovi</summary><div><strong>Regressão → Matriz de correlação.</strong> Desmarquem Pearson, marquem “Tau-b de Kendall” e “Indicar significância”.</div></details>
+    <textarea id="resposta-14" name="resposta-14" class="answer-control" rows="6" aria-label="Resposta 5.2" placeholder="Escrevam a resposta aqui…"></textarea></div>
+</section>
+
+<!-- ================= PARTE 6 ================= -->
+<section class="panel page-break" id="parte-6" data-part="6">
+  <div class="part-head"><h2>Parte 6 · Relação entre variáveis contínuas</h2><span class="pts">1,8 ponto</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre correlação de Pearson. Os links das aulas estão no <strong>Classroom</strong>.</p>
+  <div class="callout ok"><strong>Troca de papéis:</strong> a partir daqui, quem revisava passa a operar o jamovi.</div>
+  <p class="part-intro">Analisem <code>horas_estudo_semana</code> e <code>nota_metodos</code>.</p>
+  <details class="hint"><summary>Onde fazer no jamovi</summary><div><strong>Regressão → Matriz de correlação.</strong> Marquem Pearson, “Indicar significância”, N e “Intervalos de confiança” (95%). Em <em>Gráfico</em>, marquem “Matriz de correlação” para ver o gráfico de dispersão.</div></details>
+
+  <div class="q"><div class="q-head"><span class="q-num">6.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> a <a class="gl" href="glossario.html#correlacao-de-pearson" target="_blank" rel="noopener">correlação de Pearson</a> resume, num só número, a direção e a força de uma relação linear.</p><ol><li>Relatem r, IC 95%, p-valor e N.</li><li>Calculem <a class="gl" href="glossario.html#coeficiente-de-determinacao" target="_blank" rel="noopener">r²</a> (r × r).</li><li>Interpretem: direção (positiva ou negativa), força (fraca, moderada ou forte) e o que o r² significa em termos de variabilidade compartilhada.</li></ol></div><span class="q-pts">1,2</span></div>
+    <textarea id="resposta-15" name="resposta-15" class="answer-control" rows="6" aria-label="Resposta 6.1" placeholder="r = …  IC 95% = [ … ; … ]  p = …  N = …&#10;r² = …&#10;Interpretação: …"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">6.2</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> o r pode enganar; o gráfico mostra se faz sentido resumir a relação com ele.</p><p>Olhem o gráfico de dispersão e respondam:</p><ol><li>Os pontos seguem aproximadamente uma reta ou formam uma curva (<a class="gl" href="glossario.html#linearidade" target="_blank" rel="noopener">linearidade</a>)?</li><li>Há algum ponto isolado que poderia estar puxando o resultado (<a class="gl" href="glossario.html#valor-influente" target="_blank" rel="noopener">valor influente</a>)?</li><li>Os valores cobrem uma faixa ampla ou estreita (<a class="gl" href="glossario.html#restricao-de-amplitude" target="_blank" rel="noopener">restrição de amplitude</a>)?</li></ol><p>Depois escrevam (a) uma conclusão correta sobre a relação e (b) um exemplo de conclusão causal indevida, que deve ser evitada.</p></div><span class="q-pts">0,6</span></div>
+    <textarea id="resposta-16" name="resposta-16" class="answer-control" rows="5" aria-label="Resposta 6.2" placeholder="Diagnóstico do gráfico: …&#10;Conclusão correta: …&#10;Conclusão causal a evitar: …"></textarea></div>
+</section>
+
+<!-- ================= PARTE 7 ================= -->
+<section class="panel" id="parte-7" data-part="7">
+  <div class="part-head"><h2>Parte 7 · Comparações entre grupos</h2><span class="pts">3,4 pontos</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre teste t e ANOVA. Os links das aulas estão no <strong>Classroom</strong>.</p>
+
+  <h3>Teste t independente</h3>
+  <p>Comparem <code>nota_metodos</code> entre quem recebe e quem não recebe <code>bolsa_permanencia</code>.</p>
+  <details class="hint"><summary>Onde fazer no jamovi</summary><div><strong>Testes T → Teste T para amostras independentes.</strong> Variável dependente: <code>nota_metodos</code>; agrupamento: <code>bolsa_permanencia</code>. Marquem Student e Welch, diferença das médias, intervalo de confiança, tamanho do efeito (d de Cohen), descritivas e o teste de homogeneidade (Levene).</div></details>
+
+  <div class="q"><div class="q-head"><span class="q-num">7.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> ao comparar dois grupos, é preciso olhar o tamanho da diferença, e não só se ela é “significativa”.</p><ol><li><strong>Escolham a rota</strong> pelo <a class="gl" href="glossario.html#teste-de-levene" target="_blank" rel="noopener">teste de Levene</a>: p ≥ 0,05 → Student; p &lt; 0,05 → <a class="gl" href="glossario.html#teste-t-de-welch" target="_blank" rel="noopener">Welch</a>. Digam qual usaram e por quê.</li><li>Relatem média e desvio-padrão de cada grupo.</li><li>Relatem t, gl, p-valor, diferença de médias com IC 95% e <a class="gl" href="glossario.html#d-de-cohen" target="_blank" rel="noopener">d de Cohen</a>.</li><li>Concluam separando duas perguntas: a diferença é estatisticamente significativa? Ela é grande ou pequena na prática?</li></ol></div><span class="q-pts">1,6</span></div>
+    <ul class="report"><li>Levene → rota</li><li>médias e DPs</li><li>t, gl, p</li><li>diferença e IC</li><li>d de Cohen</li><li>importância prática</li></ul>
+    <textarea id="resposta-17" name="resposta-17" class="answer-control" rows="7" aria-label="Resposta 7.1" placeholder="Escrevam a resposta aqui…"></textarea></div>
+
+  <h3>ANOVA de um fator</h3>
+  <p>Comparem <code>horas_estudo_semana</code> entre os grupos Não trabalha, Informal e Formal (<code>situacao_trabalho</code>).</p>
+  <details class="hint"><summary>Onde fazer no jamovi</summary><div>
+    <ol><li><strong>ANOVA → ANOVA de um fator.</strong> Marquem Welch e Fisher, descritivas, gráfico descritivo e o teste de homogeneidade (Levene).</li>
+    <li>Pós-testes: <strong>Tukey</strong> se a homogeneidade for plausível; <strong>Games-Howell</strong> se não for.</li>
+    <li>O eta quadrado (η²) não aparece nesse menu. Para obtê-lo, rodem também <strong>ANOVA → ANOVA</strong> com o mesmo fator e marquem η² em “Tamanho do efeito”.</li></ol></div></details>
+
+  <div class="q"><div class="q-head"><span class="q-num">7.2</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> a ANOVA diz se há alguma diferença entre três ou mais médias; os pós-testes mostram onde ela está.</p><ol><li><strong>Escolham a rota</strong> pelo Levene: p ≥ 0,05 → ANOVA de Fisher + <a class="gl" href="glossario.html#tukey" target="_blank" rel="noopener">Tukey</a>; p &lt; 0,05 → ANOVA de Welch + <a class="gl" href="glossario.html#games-howell" target="_blank" rel="noopener">Games-Howell</a>.</li><li>Relatem F, graus de liberdade, p-valor e <a class="gl" href="glossario.html#eta-quadrado" target="_blank" rel="noopener">η²</a>.</li><li>Pelos pós-testes, digam quais pares de grupos diferem. São três pares: Não trabalha–Informal, Não trabalha–Formal e Informal–Formal.</li><li>Interpretem as médias: qual grupo estuda mais e qual estuda menos?</li></ol><p>Lembrem: um F significativo não quer dizer que todos os pares são diferentes.</p></div><span class="q-pts">1,8</span></div>
+    <ul class="report"><li>Levene → rota</li><li>F, gl, p</li><li>η²</li><li>pares que diferem</li><li>médias dos grupos</li></ul>
+    <textarea id="resposta-18" name="resposta-18" class="answer-control" rows="7" aria-label="Resposta 7.2" placeholder="Escrevam a resposta aqui…"></textarea></div>
+</section>
+
+<!-- ================= PARTE 8 ================= -->
+<section class="panel page-break" id="parte-8" data-part="8">
+  <div class="part-head"><h2>Parte 8 · Análise de sensibilidade</h2><span class="pts">1,6 ponto</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre decisões de análise, sensibilidade e reprodutibilidade. Os links das aulas estão no <strong>Classroom</strong>.</p>
+  <p class="part-intro">Façam <strong>somente a tarefa da sua versão</strong> (<b data-fill="tarefa">ver tabela de distribuição por versão</b>, destacada abaixo). Não editem os valores originais da base: criem uma variável nova ou um filtro, para que o .omv mostre o antes e o depois.</p>
+  <div class="table-wrap"><table id="tabela-tarefas"><thead><tr><th>Tarefa</th><th>Tema</th><th>Procedimento</th></tr></thead><tbody>
+    <tr data-task="1"><td>1</td><td>Influência de um valor extremo</td><td>Criem uma variável calculada <code>horas_sens</code> com a fórmula <code>IF(id_estudante == "<span data-fill="foco">caso foco</span>", 60, horas_estudo_semana)</code>. Ela é igual à original, exceto no caso foco, que passa a ter 60 horas. Refaçam Pearson de <code>horas_sens</code> com <code>nota_metodos</code> e comparem r e p-valor com a Parte 6.</td></tr>
+    <tr data-task="2"><td>2</td><td>Inversão de codificação ordinal</td><td>Criem a variável calculada <code>dificuldade_invertida = 4 - dificuldade_permanencia</code> (nível Ordinal) e refaçam o tau-b com <code>apoio_financeiro</code>. Comparem sinal, magnitude e p-valor com a questão 5.2.</td></tr>
+    <tr data-task="3"><td>3</td><td>Agrupamento de categorias</td><td>Criem <code>trabalha2</code> reunindo Informal e Formal em “Trabalha”, com a fórmula <code>IF(situacao_trabalho == "Não trabalha", "Não trabalha", "Trabalha")</code>. Refaçam o qui-quadrado com <code>turno_curso</code> (sem correção de continuidade) e comparem graus de liberdade, p-valor, V e frequências esperadas com a questão 5.1.</td></tr>
+    <tr data-task="4"><td>4</td><td>Sensibilidade a renda extrema</td><td>Criem um filtro que exclua apenas o caso de maior renda: <code>renda_familiar_pc &lt; VMAX(renda_familiar_pc)</code>. Comparem média e mediana de <code>renda_familiar_pc</code> antes e depois. <strong>Desativem o filtro ao terminar.</strong></td></tr>
+  </tbody></table></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">8.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> uma conclusão sólida resiste a mudanças razoáveis nas decisões de análise; é isso que a <a class="gl" href="glossario.html#analise-de-sensibilidade" target="_blank" rel="noopener">análise de sensibilidade</a> verifica.</p><p>Sigam a ordem: <strong>primeiro</strong> registrem a previsão no campo (a), <strong>depois</strong> rodem a alteração e preencham o campo (b) com os resultados antes e depois, lado a lado. Expliquem o mecanismo: por que o número mudou, ou por que não mudou?</p></div><span class="q-pts">1,0</span></div>
+    <label class="field-label" for="resposta-19-previsao" style="margin-top:.6rem">a) Previsão (preencham antes de rodar)</label>
+    <textarea id="resposta-19-previsao" name="resposta-19-previsao" class="answer-control" rows="3" placeholder="Esperamos que … porque …"></textarea>
+    <label class="field-label" for="resposta-19" style="margin-top:.6rem">b) Resultados antes × depois e explicação</label>
+    <textarea id="resposta-19" name="resposta-19" class="answer-control" rows="6" placeholder="Antes: …&#10;Depois: …&#10;Mecanismo: …"></textarea></div>
+
+  <div class="q"><div class="q-head"><span class="q-num">8.2</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> alterar dados é legítimo só quando a decisão é justificada e transparente.</p><ol><li>Classifiquem a alteração da sua tarefa em <strong>uma</strong> destas categorias e justifiquem: correção de erro · análise de sensibilidade · recodificação substantiva · <a class="gl" href="glossario.html#manipulacao-indevida" target="_blank" rel="noopener">manipulação indevida</a>.</li><li>Digam como registrariam essa decisão num relatório para que outra pessoa pudesse <a class="gl" href="glossario.html#reprodutibilidade" target="_blank" rel="noopener">reproduzi-la</a>: o que foi feito, por quê e onde isso aparece no .omv.</li></ol></div><span class="q-pts">0,6</span></div>
+    <textarea id="resposta-20" name="resposta-20" class="answer-control" rows="6" aria-label="Resposta 8.2" placeholder="Escrevam a resposta aqui…"></textarea></div>
+</section>
+
+<!-- ================= PARTE 9 ================= -->
+<section class="panel" id="parte-9" data-part="9">
+  <div class="part-head"><h2>Parte 9 · Síntese técnica</h2><span class="pts">1,0 ponto</span></div>
+  <p class="aula"><b>Revisem:</b> aula(s) sobre redação de resultados. Os links das aulas estão no <strong>Classroom</strong>.</p>
+  <div class="q"><div class="q-head"><span class="q-num">9.1</span><div class="q-text"><p class="why"><b>Por que isso importa:</b> saber resumir resultados é tão importante quanto saber calculá-los: é o que o leitor de uma pesquisa vai ler.</p><p>Escrevam um texto corrido de <strong>180 a 250 palavras</strong>, como um parágrafo de resultados de artigo. Ele deve conter:</p><ul><li>um resultado descritivo;</li><li>uma associação (Parte 5 ou 6);</li><li>uma comparação entre grupos (Parte 7);</li><li>estimativas e p-valores;</li><li>pelo menos um tamanho de efeito;</li><li>duas limitações.</li></ul><p>Terminem respondendo: o que os dados mostram e o que eles <em>não</em> permitem afirmar?</p></div><span class="q-pts">1,0</span></div>
+    <ul class="report"><li>resultado descritivo</li><li>associação</li><li>comparação de grupos</li><li>estimativas e p</li><li>tamanho de efeito</li><li>2 limitações</li></ul>
+    <textarea id="resposta-21" name="resposta-21" class="answer-control" rows="12" data-min-words="180" data-max-words="250" aria-label="Resposta 9.1" placeholder="Escrevam a síntese aqui…"></textarea></div>
+</section>
+
+<!-- ================= ENTREGA ================= -->
+<section class="panel page-break" id="entrega" data-part="10">
+  <div class="part-head"><h2>Entrega do .omv e declaração de autoria</h2><span class="pts">1,5 ponto</span></div>
+  <p>Estes são os critérios avaliados nesta parte. Marquem cada item conferido antes de entregar.</p>
+  <ul class="checklist">
+    <li><label><input type="checkbox" id="chk-1" class="answer-control check"> <span>Arquivo <code data-fill="omv">revisao_VERSAO_NOMES.omv</code> legível, com as análises identificadas e <strong>sem filtros ativos por engano</strong>.</span></label></li>
+    <li><label><input type="checkbox" id="chk-2" class="answer-control check"> <span>Caderno com as tabelas e os resultados essenciais, sem colar toda a saída do jamovi.</span></label></li>
+    <li><label><input type="checkbox" id="chk-3" class="answer-control check"> <span>Versão, tarefa de sensibilidade e papéis da dupla registrados nesta página.</span></label></li>
+    <li><label><input type="checkbox" id="chk-4" class="answer-control check"> <span>Conclusões com linguagem estatística correta e sem inferência causal indevida.</span></label></li>
+    <li><label><input type="checkbox" id="chk-5" class="answer-control check"> <span>Declaração abaixo preenchida pelos dois integrantes.</span></label></li>
+  </ul>
+
+  <h3>Declaração final de autoria</h3>
+  <p>Declaramos que realizamos esta atividade durante a aula, em dupla, utilizando somente os recursos autorizados. Confirmamos que o arquivo .omv entregue contém as análises utilizadas nas respostas e que ambos podemos explicar as decisões, os procedimentos e as conclusões apresentadas.</p>
+  <div class="grid-2">
+    <label class="field-label" for="assinatura-1">Nome completo do integrante 1 (vale como assinatura)<input id="assinatura-1" name="assinatura-1" class="answer-control" type="text"></label>
+    <label class="field-label" for="assinatura-2">Nome completo do integrante 2 (vale como assinatura)<input id="assinatura-2" name="assinatura-2" class="answer-control" type="text"></label>
+  </div>
+  <div class="grid-3" style="margin-top:.9rem">
+    <label class="field-label" for="arquivo-omv">Nome do arquivo .omv entregue<input id="arquivo-omv" name="arquivo-omv" class="answer-control" type="text" placeholder="revisao_VERSAO_NOMES.omv"></label>
+    <label class="field-label" for="versao-declaracao">Versão declarada<input id="versao-declaracao" name="versao-declaracao" class="answer-control" type="text" readonly></label>
+    <label class="field-label" for="tarefa-declaracao">Tarefa de sensibilidade<input id="tarefa-declaracao" class="answer-control" type="text" readonly></label>
+  </div>
+
+  <div class="callout no-print" style="margin-top:1.2rem"><strong>Como entregar:</strong> 1) cliquem em “Salvar PDF para entregar” e escolham “Salvar como PDF” na janela de impressão; 2) uma pessoa da dupla anexa no Classroom o PDF e o arquivo .omv.</div>
+</section>
+
+</form>
+<footer>Simulado de revisão — Métodos Quantitativos — 25/11/2026. Página autônoma, sem dependências externas.</footer>
+</main>
+</div>
+
+<script>
+(() => {
+  const storageKey = 'simulado-metodos-quantitativos-2026-v2'; // mesma chave da versão anterior: preserva rascunhos
+  const VERS = {
+    A:{n:96, foco:'A023',cinco:['A005','A020','A038','A059','A080'],t:1},
+    B:{n:98, foco:'B034',cinco:['B008','B025','B045','B061','B084'],t:2},
+    C:{n:100,foco:'C045',cinco:['C011','C030','C052','C063','C088'],t:3},
+    D:{n:102,foco:'D056',cinco:['D014','D035','D059','D065','D092'],t:4},
+    E:{n:104,foco:'E067',cinco:['E017','E040','E066','E067','E096'],t:1},
+    F:{n:106,foco:'F078',cinco:['F020','F045','F069','F073','F100'],t:2},
+    G:{n:108,foco:'G089',cinco:['G023','G050','G071','G080','G104'],t:3},
+    H:{n:110,foco:'H100',cinco:['H026','H055','H073','H087','H108'],t:4}
+  };
+  const TASKS = {1:'1 · Valor extremo',2:'2 · Inversão ordinal',3:'3 · Agrupar categorias',4:'4 · Renda extrema'};
+
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const form = $('#simulado-form'), status = $('#save-status'), sel = $('#versao-base');
+  const controls = () => $$('#simulado-form .answer-control');
+  const valOf = f => f.type === 'checkbox' ? (f.checked ? 'sim' : '') : f.value;
+  const setVal = (f, v) => { if (f.type === 'checkbox') f.checked = !!v; else f.value = v ?? ''; };
+
+  // Espelhos de impressão para as caixas de texto (textarea não imprime bem)
+  $$('textarea.answer-control').forEach(t => {
+    const m = document.createElement('div'); m.className = 'print-answer'; m.dataset.mirror = t.id;
+    t.after(m);
+    if (!t.dataset.minWords) {
+      const c = document.createElement('div'); c.className = 'counter'; c.innerHTML = `<span data-counter="${t.id}">0 palavras</span>`; m.after(c);
+    } else {
+      const c = document.createElement('div'); c.className = 'counter';
+      c.innerHTML = `<span class="target" data-target="${t.id}"></span><span data-counter="${t.id}">0 palavras</span>`; m.after(c);
+    }
+  });
+
+  const words = s => s.trim() ? s.trim().split(/\s+/).length : 0;
+  const resize = f => { if (f.tagName === 'TEXTAREA') { f.style.height = 'auto'; f.style.height = Math.max(f.scrollHeight + 2, 100) + 'px'; } };
+  const refreshField = f => {
+    resize(f);
+    if (f.tagName !== 'TEXTAREA') return;
+    const n = words(f.value);
+    const c = document.querySelector(`[data-counter="${f.id}"]`); if (c) c.textContent = `${n} palavra${n === 1 ? '' : 's'}`;
+    const m = document.querySelector(`[data-mirror="${f.id}"]`); if (m) m.textContent = f.value || '(sem resposta)';
+    const tg = document.querySelector(`[data-target="${f.id}"]`);
+    if (tg) {
+      const lo = +f.dataset.minWords, hi = +f.dataset.maxWords;
+      tg.className = 'target ' + (n === 0 ? '' : (n >= lo && n <= hi ? 'ok' : 'out'));
+      tg.textContent = n === 0 ? `meta: ${lo} a ${hi} palavras` : (n < lo ? `faltam ${lo - n} para o mínimo` : n > hi ? `${n - hi} acima do máximo` : 'dentro da faixa ✓');
+    }
+  };
+
+  // Progresso por parte (conta apenas campos de resposta, não identificação)
+  const updateProgress = () => {
+    let total = 0, filled = 0;
+    $$('[data-part]').forEach(sec => {
+      const fs = [...sec.querySelectorAll('.answer-control')].filter(f => !f.readOnly);
+      const done = fs.filter(f => valOf(f).trim() !== '').length;
+      total += fs.length; filled += done;
+      const link = document.querySelector(`[data-toc="${sec.dataset.part}"]`);
+      if (link) { link.classList.toggle('done', fs.length && done === fs.length); link.classList.toggle('partial', done > 0 && done < fs.length); }
+    });
+    $$('.q').forEach(q => {
+      const fs = [...q.querySelectorAll('textarea')];
+      q.classList.toggle('answered', fs.length > 0 && fs.every(f => f.value.trim()));
+    });
+    $('#completion-status').textContent = `${filled} de ${total} campos preenchidos`;
+    $('#progress-fill').style.width = total ? (100 * filled / total) + '%' : '0';
+  };
+
+  // Versão
+  const fillAll = (key, text) => $$(`[data-fill="${key}"]`).forEach(el => el.textContent = text);
+  const updateVersion = () => {
+    const v = sel.value, info = VERS[v];
+    $$('.version-picker button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v ? 'true' : 'false'));
+    $('#versao-declaracao').value = v;
+    $('#topbar-version').textContent = v ? `Versão ${v}` : 'Versão não escolhida';
+    $('#status-versao').textContent = v ? `Versão ${v} selecionada. Para trocar, cliquem em outra letra.` : 'Nenhuma versão selecionada.';
+    $('#my-version').classList.toggle('show', !!v);
+    $$('#tabela-versoes tbody tr').forEach(r => { r.classList.toggle('mine', r.dataset.row === v); });
+    $$('#tabela-tarefas tbody tr').forEach(r => { r.classList.toggle('mine', !!info && +r.dataset.task === info.t); r.classList.toggle('not-mine', !!info && +r.dataset.task !== info.t); });
+    if (!info) { $('#tarefa-declaracao').value = ''; return; }
+    const nomes = [$('#nome-1').value, $('#nome-2').value].map(s => s.trim().split(/\s+/)[0] || '').filter(Boolean)
+      .map(s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]/g, '')).join('_') || 'NOMES';
+    const omv = `revisao_${v}_${nomes}.omv`;
+    fillAll('v', v); fillAll('n', info.n); fillAll('foco', info.foco); fillAll('tarefa', TASKS[info.t]);
+    fillAll('cinco', info.cinco.join(', ')); fillAll('omv', omv);
+    fillAll('filtro', info.cinco.map(id => `id_estudante == "${id}"`).join(' or '));
+    $('#dl-base').href = `bases_csv/base_revisao_versao_${v}.csv`;
+    $('#arquivo-omv').placeholder = omv;
+    $('#tarefa-declaracao').value = TASKS[info.t];
+  };
+
+  // Salvamento
+  const snapshot = () => Object.fromEntries(controls().filter(f => f.id).map(f => [f.id, valOf(f)]));
+  let timer;
+  const save = () => {
+    try { localStorage.setItem(storageKey, JSON.stringify(snapshot())); status.className = 'save-status'; status.textContent = 'Salvo neste navegador'; }
+    catch (e) { status.className = 'save-status error'; status.textContent = 'Não foi possível salvar: baixem uma cópia de segurança'; }
+  };
+  const schedule = () => { status.className = 'save-status pending'; status.textContent = 'Salvando…'; clearTimeout(timer); timer = setTimeout(save, 300); };
+  const apply = data => {
+    // Migração: a versão anterior tinha dois campos para a síntese (resposta-21 e resposta-22)
+    if (data['resposta-22'] && data['resposta-22'].trim()) {
+      data['resposta-21'] = [data['resposta-21'], data['resposta-22']].filter(s => s && s.trim()).join('\n\n');
+      delete data['resposta-22'];
+    }
+    controls().forEach(f => { if (f.id && Object.prototype.hasOwnProperty.call(data, f.id)) setVal(f, data[f.id]); });
+    controls().forEach(refreshField); updateVersion(); updateProgress();
+  };
+
+  try { apply(JSON.parse(localStorage.getItem(storageKey) || '{}')); save(); }
+  catch (e) { status.className = 'save-status error'; status.textContent = 'Não foi possível recuperar o rascunho'; controls().forEach(refreshField); updateVersion(); updateProgress(); }
+
+  form.addEventListener('submit', e => e.preventDefault());
+  form.addEventListener('input', e => {
+    const f = e.target.closest('.answer-control'); if (!f) return;
+    refreshField(f);
+    if (f.id === 'nome-1' || f.id === 'nome-2') updateVersion();
+    updateProgress(); schedule();
+  });
+  form.addEventListener('change', () => { updateProgress(); schedule(); });
+
+  // Escolha de versão, com aviso se já houver respostas
+  $$('.version-picker button').forEach(b => b.addEventListener('click', () => {
+    const nv = b.dataset.v; if (nv === sel.value) return;
+    const hasAnswers = $$('textarea.answer-control, .table-answer').some(f => f.value.trim());
+    if (sel.value && hasAnswers && !confirm(`Vocês já começaram a responder com a versão ${sel.value}. Trocar para a versão ${nv} vai deixar as respostas inconsistentes com a base. Trocar mesmo assim?`)) return;
+    sel.value = nv; updateVersion(); updateProgress(); save();
+    document.getElementById('my-version').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }));
+
+  $('#clear-form').addEventListener('click', () => {
+    if (!confirm('Apagar TODAS as respostas salvas neste navegador? Esta ação não pode ser desfeita. Dica: baixem antes uma cópia de segurança.')) return;
+    clearTimeout(timer); form.reset(); sel.value = '';
+    try { localStorage.removeItem(storageKey); status.textContent = 'Respostas apagadas'; } catch (e) { status.textContent = 'Campos limpos'; }
+    controls().forEach(refreshField); updateVersion(); updateProgress();
+  });
+
+  $('#download-answers').addEventListener('click', () => {
+    save();
+    const v = sel.value || 'SEM-VERSAO';
+    const name = ($('#nome-1').value || 'DUPLA').trim().replace(/[^\p{L}\p{N}]+/gu, '-');
+    const payload = { atividade: 'Simulado de revisão integrada de Métodos Quantitativos', exportado_em: new Date().toISOString(), respostas: snapshot() };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `respostas_${v}_${name}.json`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+
+  $('#import-answers').addEventListener('click', () => $('#import-file').click());
+  $('#import-file').addEventListener('change', e => {
+    const file = e.target.files[0]; if (!file) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const data = JSON.parse(r.result); const resp = data.respostas || data;
+        if (!confirm('Substituir as respostas desta página pelas do arquivo?')) return;
+        apply(resp); save(); status.textContent = 'Cópia restaurada';
+      } catch (err) { alert('Arquivo inválido. Usem o .json gerado pelo botão “Cópia de segurança”.'); }
+      e.target.value = '';
+    };
+    r.readAsText(file);
+  });
+
+  window.addEventListener('beforeprint', () => controls().forEach(refreshField));
+  window.addEventListener('beforeunload', save);
+})();
+</script>
+</body>
+</html>

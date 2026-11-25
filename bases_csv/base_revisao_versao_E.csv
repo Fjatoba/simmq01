@@ -1,0 +1,105 @@
+﻿id_estudante,versao,rede_ensino_medio,modalidade_ingresso,situacao_trabalho,turno_curso,bolsa_permanencia,anos_estudo_responsavel,apoio_financeiro,dificuldade_permanencia,satisfacao_curso,horas_trabalho_semana,horas_estudo_semana,deslocamento_min,renda_familiar_pc,indice_capital_cultural,indice_pertencimento,nota_metodos
+E001,E,Privada,Cota,Não trabalha,Diurno,Sim,12,3,2,2,0.0,14.0,32.0,1929.78,58.3,81.7,7.39
+E002,E,Privada,Cota,Formal,Noturno,Sim,14,3,1,5,34.2,8.5,62.4,1192.22,75.1,57.7,7.17
+E003,E,Privada,Ampla concorrência,Informal,Diurno,Não,9,1,3,1,21.2,9.2,25.9,662.15,50.8,38.7,5.22
+E004,E,Privada,Ampla concorrência,Formal,Noturno,Sim,11,2,2,3,37.1,7.5,53.0,2047.21,52.6,55.1,6.42
+E005,E,Pública,Cota,Formal,Noturno,Sim,7,1,3,2,34.2,3.5,38.5,3166.07,56.2,40.1,6.07
+E006,E,Pública,Cota,Formal,Noturno,Não,10,2,3,3,32.1,8.6,37.4,2121.0,56.7,53.0,5.94
+E007,E,Privada,Ampla concorrência,Não trabalha,Noturno,Não,7,1,2,4,0.0,11.0,37.7,771.35,43.8,46.8,5.57
+E008,E,Pública,Cota,Não trabalha,Noturno,Sim,11,1,2,3,0.0,13.5,55.2,1086.7,70.9,49.9,7.32
+E009,E,Pública,Cota,Formal,Noturno,Sim,14,3,1,4,32.9,8.8,44.9,2302.35,70.4,56.0,7.3
+E010,E,Pública,Ampla concorrência,Formal,Noturno,Não,12,2,3,1,29.2,9.7,51.1,3060.48,75.0,55.0,6.76
+E011,E,Pública,Cota,Informal,Diurno,Sim,13,2,2,2,19.3,6.0,33.8,1231.91,70.7,44.8,7.23
+E012,E,Pública,Cota,Não trabalha,Diurno,Sim,6,1,3,1,0.0,11.2,41.0,3176.04,20.3,50.6,5.52
+E013,E,Privada,Ampla concorrência,Não trabalha,Diurno,Não,11,3,1,5,0.0,15.2,44.1,1291.67,54.6,56.8,7.18
+E014,E,Privada,Cota,Informal,Noturno,Sim,7,3,2,1,20.8,14.5,55.3,1008.28,61.4,56.4,7.55
+E015,E,Privada,Ampla concorrência,Formal,Diurno,Sim,12,2,1,5,43.5,6.3,27.2,1825.46,63.8,51.3,7.29
+E016,E,Pública,Cota,Formal,Diurno,Não,9,2,2,5,32.5,7.7,37.4,1838.38,39.7,39.4,5.34
+E017,E,Pública,Cota,Formal,Noturno,Sim,9,2,1,3,39.0,4.8,57.2,1898.13,53.6,43.9,6.2
+E018,E,Pública,Cota,Não trabalha,Diurno,Sim,14,2,1,3,0.0,15.0,39.1,2121.75,67.0,67.7,5.96
+E019,E,Pública,Ampla concorrência,Informal,Diurno,Sim,9,1,3,3,13.9,9.6,64.9,1406.41,57.9,38.5,8.04
+E020,E,Privada,Ampla concorrência,Formal,Noturno,Não,17,2,3,1,29.6,6.1,39.2,4625.66,84.3,43.6,6.49
+E021,E,Privada,Ampla concorrência,Informal,Diurno,Sim,15,3,1,4,29.0,7.3,34.6,977.18,85.7,54.1,7.27
+E022,E,Pública,Cota,Não trabalha,Diurno,Sim,7,1,3,2,0.0,11.3,42.7,618.7,55.7,43.3,7.79
+E023,E,Pública,Ampla concorrência,Formal,Diurno,Sim,9,2,2,3,12.6,13.6,41.3,2017.31,45.6,59.1,7.05
+E024,E,Pública,Cota,Não trabalha,Diurno,Não,10,1,3,4,0.0,11.1,68.8,1943.37,65.3,32.1,6.85
+E025,E,Privada,Ampla concorrência,Não trabalha,Diurno,Não,17,2,1,3,0.0,9.8,56.5,2432.41,93.7,65.3,7.29
+E026,E,Pública,Cota,Não trabalha,Diurno,Sim,7,2,3,2,0.0,17.3,38.9,728.0,49.1,57.4,7.06
+E027,E,Privada,Ampla concorrência,Não trabalha,Diurno,Não,12,2,1,5,0.0,14.8,39.5,3750.24,67.7,69.4,7.4
+E028,E,Pública,Cota,Informal,Diurno,Não,10,2,3,2,22.4,11.2,29.0,1131.53,32.1,61.4,5.36
+E029,E,Pública,Cota,Não trabalha,Noturno,Sim,13,3,1,3,0.0,19.7,59.5,1319.85,83.4,71.6,7.37
+E030,E,Privada,Cota,Informal,Diurno,Não,11,1,2,4,11.1,15.4,42.0,1289.61,54.3,50.2,6.04
+E031,E,Pública,Ampla concorrência,Não trabalha,Diurno,Sim,10,2,2,5,0.0,8.1,97.2,1357.43,47.8,68.9,5.9
+E032,E,Pública,Ampla concorrência,Não trabalha,Diurno,Sim,7,3,1,5,0.0,7.5,79.7,1071.78,38.6,63.3,6.32
+E033,E,Privada,Ampla concorrência,Informal,Noturno,Sim,8,2,2,3,20.0,10.9,74.5,2398.81,43.7,53.3,5.84
+E034,E,Pública,Cota,Não trabalha,Diurno,Sim,9,2,2,2,0.0,16.8,37.9,875.0,41.7,58.2,6.95
+E035,E,Pública,Cota,Formal,Diurno,Sim,11,2,2,3,41.7,7.2,53.6,2455.4,61.5,37.9,6.49
+E036,E,Pública,Cota,Formal,Noturno,Sim,14,2,1,4,27.6,9.3,68.0,1200.42,67.6,71.1,6.85
+E037,E,Pública,Ampla concorrência,Informal,Noturno,Não,13,3,1,5,23.4,2.8,63.2,1316.63,54.4,51.0,5.43
+E038,E,Pública,Ampla concorrência,Não trabalha,Noturno,Sim,14,3,1,3,0.0,14.9,62.4,3211.85,67.3,75.3,6.47
+E039,E,Pública,Cota,Não trabalha,Noturno,Sim,9,2,2,4,0.0,15.6,74.7,1048.06,51.5,48.3,6.38
+E040,E,Pública,Cota,Informal,Noturno,Sim,7,1,2,4,18.9,12.1,64.4,1589.22,32.6,51.0,5.24
+E041,E,Privada,Cota,Formal,Noturno,Sim,10,1,3,2,27.5,9.3,56.1,2304.34,47.0,40.1,5.67
+E042,E,Pública,Cota,Não trabalha,Diurno,Não,11,1,2,1,0.0,12.5,34.2,878.24,57.9,66.4,6.34
+E043,E,Pública,Cota,Não trabalha,Diurno,Não,12,1,1,2,0.0,13.5,66.1,1415.6,66.5,62.5,6.89
+E044,E,Privada,Ampla concorrência,Não trabalha,Diurno,Sim,13,1,1,3,0.0,19.4,56.9,704.06,63.3,50.0,8.12
+E045,E,Pública,Ampla concorrência,Formal,Noturno,Sim,7,3,1,5,41.2,4.7,43.1,1108.01,49.7,59.8,5.53
+E046,E,Privada,Ampla concorrência,Formal,Noturno,Não,14,2,2,4,44.1,1.8,73.4,1895.85,53.3,46.1,5.03
+E047,E,Pública,Cota,Formal,Noturno,Não,9,2,2,5,24.2,1.2,52.3,3304.76,48.6,53.4,5.38
+E048,E,Pública,Ampla concorrência,Não trabalha,Diurno,Sim,12,3,1,5,0.0,16.2,32.1,2450.08,72.4,62.0,7.38
+E049,E,Pública,Cota,Não trabalha,Diurno,Não,15,3,1,5,0.0,17.2,38.3,1128.12,62.2,57.4,7.12
+E050,E,Privada,Ampla concorrência,Formal,Noturno,Sim,11,2,3,4,24.9,9.7,46.1,2465.87,57.4,39.1,6.0
+E051,E,Privada,Cota,Informal,Diurno,Sim,7,2,1,5,9.7,17.2,41.5,1537.35,38.7,43.0,6.74
+E052,E,Pública,Cota,Formal,Noturno,Sim,11,3,1,1,27.5,13.4,56.6,1048.42,49.3,68.5,6.26
+E053,E,Privada,Ampla concorrência,Formal,Diurno,Não,11,2,2,4,29.4,7.3,21.9,1558.9,57.2,49.5,3.61
+E054,E,Pública,Ampla concorrência,Não trabalha,Diurno,Sim,4,2,2,2,0.0,16.0,48.2,1204.48,32.1,54.9,6.87
+E055,E,Pública,Cota,Informal,Diurno,Sim,9,1,3,2,21.1,19.6,20.2,1565.3,60.4,56.1,8.8
+E056,E,Privada,Cota,Informal,Diurno,Sim,10,1,2,3,16.5,14.3,33.6,2806.61,50.7,52.2,7.72
+E057,E,Pública,Cota,Informal,Diurno,Sim,9,2,3,1,24.3,10.3,30.7,1873.06,46.0,53.7,7.03
+E058,E,Privada,Ampla concorrência,Não trabalha,Diurno,Não,15,3,1,4,0.0,15.4,30.5,1628.78,92.8,47.4,6.05
+E059,E,Pública,Cota,Não trabalha,Diurno,Sim,10,2,1,3,0.0,18.8,69.8,1442.17,55.0,66.7,8.19
+E060,E,Pública,Cota,Formal,Noturno,Não,12,1,2,3,18.0,13.5,38.6,22400.0,46.5,53.8,5.68
+E061,E,Privada,Ampla concorrência,Informal,Diurno,Não,12,2,3,1,21.5,10.3,47.0,1476.62,80.8,36.7,6.93
+E062,E,Privada,Cota,Informal,Noturno,Sim,12,2,2,2,7.8,17.5,38.6,2186.97,67.2,50.4,7.5
+E063,E,Privada,Cota,Informal,Noturno,Sim,14,3,2,1,11.0,12.2,40.6,1056.96,84.2,71.4,6.02
+E064,E,Pública,Cota,Não trabalha,Noturno,Sim,9,2,3,2,0.0,13.8,43.2,696.25,66.7,49.3,6.36
+E065,E,Privada,Ampla concorrência,Formal,Noturno,Sim,10,3,2,5,40.5,11.7,34.2,1074.33,62.2,66.3,6.38
+E066,E,Privada,Cota,Não trabalha,Diurno,Sim,10,2,2,4,0.0,15.3,27.7,791.6,62.9,50.3,6.89
+E067,E,Privada,Cota,Formal,Noturno,Sim,5,3,1,3,27.4,10.5,22.5,1921.37,36.8,66.7,5.44
+E068,E,Privada,Ampla concorrência,Não trabalha,Diurno,Sim,11,1,3,1,0.0,23.0,25.7,640.14,63.6,40.6,7.16
+E069,E,Privada,Cota,Formal,Noturno,Sim,13,2,3,4,24.8,9.9,53.8,1023.51,81.3,46.9,8.5
+E070,E,Pública,Ampla concorrência,Informal,Diurno,Sim,7,2,2,3,10.6,12.1,37.9,1757.08,52.9,71.5,6.15
+E071,E,Privada,Cota,Formal,Noturno,Sim,14,1,3,1,25.4,6.8,31.9,3924.45,75.4,54.0,6.36
+E072,E,Privada,Ampla concorrência,Não trabalha,Diurno,Sim,18,3,1,5,0.0,19.2,55.4,2208.81,99.2,67.2,7.43
+E073,E,Privada,Ampla concorrência,Não trabalha,Diurno,Não,17,2,3,4,0.0,15.7,42.7,4073.77,84.6,45.0,7.12
+E074,E,Pública,Ampla concorrência,Não trabalha,Diurno,Não,18,3,1,3,0.0,15.1,44.0,2392.31,86.6,63.9,6.52
+E075,E,Privada,Cota,Informal,Diurno,Não,18,1,3,2,18.1,13.4,27.1,2635.03,90.7,46.0,5.92
+E076,E,Pública,Cota,Formal,Noturno,Sim,12,1,2,2,35.9,9.7,61.2,1022.36,53.5,46.5,6.53
+E077,E,Privada,Cota,Não trabalha,Noturno,Sim,10,2,3,3,0.0,10.2,28.6,1296.2,43.1,49.9,6.7
+E078,E,Privada,Cota,Informal,Noturno,Sim,8,2,3,2,13.5,16.5,26.4,704.75,46.9,57.2,5.89
+E079,E,Privada,Cota,Não trabalha,Noturno,Sim,8,3,1,4,0.0,10.1,39.7,1516.94,43.6,75.8,7.28
+E080,E,Pública,Cota,Informal,Diurno,Sim,11,1,3,1,24.2,13.6,32.0,602.98,45.0,55.2,6.6
+E081,E,Privada,Ampla concorrência,Não trabalha,Noturno,Não,12,3,1,3,0.0,13.6,31.7,2638.29,61.6,65.6,5.8
+E082,E,Privada,Ampla concorrência,Formal,Noturno,Sim,12,3,1,5,32.3,16.6,36.8,1120.97,66.1,69.4,7.25
+E083,E,Pública,Cota,Informal,Diurno,Não,6,1,3,1,18.5,7.3,34.1,895.64,34.0,44.1,4.37
+E084,E,Pública,Cota,Não trabalha,Diurno,Não,13,1,2,3,0.0,14.3,49.6,778.4,68.2,61.7,7.3
+E085,E,Pública,Ampla concorrência,Informal,Noturno,Não,12,3,1,4,28.4,10.6,59.6,755.22,60.1,77.6,7.15
+E086,E,Privada,Ampla concorrência,Formal,Noturno,Sim,8,3,1,5,40.6,5.7,35.8,619.83,31.1,62.3,6.34
+E087,E,Pública,Cota,Informal,Diurno,Sim,4,1,3,1,10.4,19.8,65.7,491.88,24.0,43.4,6.72
+E088,E,Privada,Cota,Não trabalha,Noturno,Sim,12,2,2,2,0.0,15.2,47.3,1082.73,63.0,64.8,7.74
+E089,E,Pública,Ampla concorrência,Informal,Noturno,Não,14,2,2,3,27.2,13.3,69.8,371.61,65.1,60.4,5.87
+E090,E,Privada,Ampla concorrência,Não trabalha,Diurno,Sim,14,2,1,4,0.0,21.3,44.5,3364.93,85.8,50.1,9.84
+E091,E,Pública,Cota,Informal,Noturno,Não,12,1,3,1,9.0,11.7,66.5,952.17,51.2,40.5,4.32
+E092,E,Privada,Ampla concorrência,Não trabalha,Diurno,Sim,10,2,2,2,0.0,13.2,41.2,646.42,56.0,61.3,7.88
+E093,E,Pública,Ampla concorrência,Não trabalha,Diurno,Não,12,3,1,5,0.0,16.5,72.8,1650.44,58.9,78.6,7.58
+E094,E,Pública,Ampla concorrência,Não trabalha,Diurno,Sim,12,3,1,5,0.0,19.5,67.6,2427.68,67.1,75.7,7.78
+E095,E,Pública,Ampla concorrência,Informal,Noturno,Sim,11,2,2,1,19.4,5.4,81.4,1277.3,68.4,33.9,6.51
+E096,E,Privada,Ampla concorrência,Informal,Diurno,Não,12,2,3,3,20.9,8.9,26.8,620.61,71.3,61.2,4.78
+E097,E,Privada,Cota,Não trabalha,Noturno,Sim,15,3,1,2,0.0,16.7,65.3,1841.41,70.4,51.3,7.35
+E098,E,Pública,Cota,Informal,Noturno,Não,11,2,1,4,25.5,7.1,49.5,648.14,60.0,53.1,5.54
+E099,E,Pública,Cota,Não trabalha,Diurno,Sim,4,2,3,2,0.0,14.7,55.6,1568.12,14.9,61.9,6.42
+E100,E,Privada,Cota,Não trabalha,Noturno,Sim,13,3,2,1,0.0,15.6,35.2,1699.63,63.0,65.5,8.34
+E101,E,Pública,Cota,Informal,Noturno,Sim,7,2,2,4,19.3,11.2,58.5,1132.32,39.9,56.0,5.17
+E102,E,Pública,Cota,Não trabalha,Noturno,Não,9,1,2,2,0.0,9.2,33.2,1543.44,43.8,43.7,7.01
+E103,E,Pública,Cota,Informal,Noturno,Sim,6,1,3,1,12.7,12.7,88.8,1319.5,30.5,54.3,6.61
+E104,E,Privada,Ampla concorrência,Informal,Diurno,Não,10,3,1,4,33.9,10.1,19.8,2902.1,68.1,73.7,6.93

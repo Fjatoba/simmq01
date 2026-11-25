@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Apresentação do simulado de revisão — Métodos Quantitativos">
+<title>Apresentação — Simulado de Métodos Quantitativos</title>
+<style>
+:root{--ink:#17222b;--muted:#5a6976;--brand:#21606f;--brand-dark:#163f4b;--brand-soft:#e7f1f3;--line:#d3dfe3;--canvas:#f2f5f6;--accent:#b4531a;--accent-soft:#fdf0e7;--ok:#2d7a4a;--ok-soft:#e5f4ea;--bad:#a33a2a;--bad-soft:#fbeaea}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:var(--canvas);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;line-height:1.6;font-size:16px}
+a{color:var(--brand)}code{background:var(--brand-soft);padding:.05rem .35rem;border-radius:.3rem;font-size:.9em}
+.topbar{position:sticky;top:0;z-index:10;display:flex;gap:1rem;align-items:center;padding:.6rem max(1rem,calc((100vw - 980px)/2));background:var(--brand-dark);color:#fff}
+.topbar a{color:#fff;text-decoration:none;font-weight:600;font-size:.92rem}.topbar .sp{flex:1}
+.topbar a.cta{background:#fff;color:var(--brand-dark);padding:.35rem .8rem;border-radius:.45rem}
+.wrap{max-width:980px;margin:0 auto;padding:1.5rem 1rem 3rem}
+.hero{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;border-radius:1rem;padding:2.2rem 2.2rem 2rem;margin-bottom:1.5rem}
+.hero h1{margin:0 0 .4rem;font-size:2.1rem;line-height:1.15}.hero p{margin:.4rem 0;max-width:46rem;opacity:.95}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.3rem}.chips span{background:rgba(255,255,255,.16);padding:.25rem .75rem;border-radius:999px;font-size:.9rem;font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem}.btn{display:inline-block;padding:.65rem 1.1rem;border-radius:.55rem;font-weight:700;text-decoration:none}
+.btn.main{background:#fff;color:var(--brand-dark)}.btn.ghost{border:1px solid rgba(255,255,255,.6);color:#fff}
+section{background:#fff;border:1px solid var(--line);border-radius:.8rem;padding:1.6rem 2rem;margin-bottom:1.2rem}
+h2{margin:0 0 .8rem;color:var(--brand-dark);font-size:1.4rem;scroll-margin-top:4rem}h3{color:var(--brand);margin:1.2rem 0 .4rem;font-size:1.08rem}
+.callout{padding:.85rem 1.1rem;border-left:4px solid var(--brand);background:var(--brand-soft);border-radius:0 .5rem .5rem 0;margin:.9rem 0}
+.callout.warn{border-color:var(--accent);background:var(--accent-soft)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+.card{border:1px solid var(--line);border-radius:.7rem;padding:1rem;background:#fbfdfd}.card b{display:block;color:var(--brand-dark);margin-bottom:.2rem}
+.timeline{list-style:none;margin:0;padding:0;counter-reset:s}
+.timeline>li{position:relative;padding:0 0 1.3rem 3.2rem;counter-increment:s}
+.timeline>li::before{content:counter(s);position:absolute;left:0;top:0;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;display:grid;place-items:center}
+.timeline>li::after{content:"";position:absolute;left:1.05rem;top:2.3rem;bottom:.2rem;width:2px;background:var(--line)}
+.timeline>li:last-child::after{display:none}
+.timeline h3{margin:.25rem 0 .3rem}.timeline ul{margin:.3rem 0;padding-left:1.2rem}
+table{width:100%;border-collapse:collapse;font-size:.93rem}th,td{padding:.5rem .65rem;border:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--brand);color:#fff}tbody tr:nth-child(even){background:#f6fafb}
+td.n{text-align:right;white-space:nowrap}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:.8rem 0 1.2rem}
+.compare div{border-radius:.6rem;padding:.8rem 1rem;font-size:.93rem}
+.compare .bad{background:var(--bad-soft);border:1px solid #e9c3bd}.compare .good{background:var(--ok-soft);border:1px solid #b9dcc6}
+.compare b{display:block;margin-bottom:.25rem}.compare .bad b{color:var(--bad)}.compare .good b{color:var(--ok)}
+details{border:1px solid var(--line);border-radius:.55rem;margin:.5rem 0;background:#fff}
+summary{padding:.65rem 1rem;cursor:pointer;font-weight:600;color:var(--brand-dark)}details>div{padding:0 1rem .8rem}
+.final{text-align:center}.final .btn.main{background:var(--brand-dark);color:#fff;font-size:1.05rem;padding:.8rem 1.5rem}
+footer{text-align:center;color:var(--muted);font-size:.85rem}
+@media(max-width:760px){.grid,.compare{grid-template-columns:1fr}section{padding:1.2rem 1rem}.hero{padding:1.5rem 1.2rem}.hero h1{font-size:1.6rem}.topbar{flex-wrap:wrap}}
+@media print{.topbar,.btns{display:none}body{background:#fff}section{border:0;padding:0}}
+</style>
+</head>
+<body>
+<nav class="topbar" aria-label="Navegação">
+  <a href="apresentacao.html">Apresentação</a>
+  <a href="glossario.html">Glossário</a>
+  <a href="aula-revisao.html">Aula de revisão</a>
+  <span class="sp"></span>
+  <a class="cta" href="index.html">Ir para o simulado →</a>
+</nav>
+
+<div class="wrap">
+<header class="hero">
+  <h1>Simulado de revisão integrada<br>de Métodos Quantitativos</h1>
+  <p>Uma revisão prática de todo o percurso da disciplina, da escolha da análise à redação da conclusão, feita em dupla, com análises no jamovi.</p>
+  <div class="chips"><span>25 de novembro de 2026</span><span>110 minutos</span><span>Em dupla</span><span>20 pontos</span><span>Base sintética de estudantes</span></div>
+  <div class="btns"><a class="btn main" href="index.html">Começar o simulado</a><a class="btn ghost" href="glossario.html">Abrir o glossário</a><a class="btn ghost" href="#passo-a-passo">Ver o passo a passo</a></div>
+</header>
+
+<section>
+  <h2>Para que serve este simulado</h2>
+  <p>Ao longo do semestre, vocês viram cada técnica separadamente. Aqui elas aparecem <strong>juntas e sobre a mesma base</strong>, como acontece numa pesquisa de verdade. O objetivo não é decorar fórmulas. É mostrar que vocês sabem:</p>
+  <div class="grid">
+    <div class="card"><b>1. Decidir</b>Qual análise combina com cada pergunta e com cada tipo de variável, e por quê.</div>
+    <div class="card"><b>2. Executar</b>Preparar a base e rodar as análises corretas no jamovi, deixando tudo registrado no .omv.</div>
+    <div class="card"><b>3. Interpretar</b>Ler os resultados com linguagem estatística correta, separando o que os dados mostram do que eles não permitem afirmar.</div>
+  </div>
+  <div class="callout"><strong>Revisem as aulas.</strong> Os links das gravações e dos materiais de cada aula estão disponíveis no <strong>Google Classroom</strong> da disciplina. Cada parte do simulado indica qual aula retomar. Vale abri-las antes de começar, porque durante o simulado são material autorizado. Para uma visão geral, há também a <a href="aula-revisao.html">aula de revisão</a>, que percorre todo o conteúdo em 60 minutos.</div>
+</section>
+
+<section>
+  <h2>O que vocês vão precisar</h2>
+  <div class="grid">
+    <div class="card"><b>jamovi instalado</b>Testem antes de começar: abram o programa e importem qualquer CSV.</div>
+    <div class="card"><b>Calculadora</b>Para as contas manuais das Partes 3 e 4 (média, variância, escore z, intervalo e teste z).</div>
+    <div class="card"><b>Acesso ao Classroom</b>Para consultar os links das aulas e, no final, entregar o PDF e o arquivo .omv.</div>
+  </div>
+  <p style="margin-top:1rem">Também podem usar o <a href="glossario.html">glossário</a> desta página e os materiais autorizados pelo professor. <strong>Não</strong> é permitido consultar IA generativa, buscas na internet ou respostas de outras duplas.</p>
+</section>
+
+<section id="passo-a-passo">
+  <h2>Passo a passo</h2>
+  <ol class="timeline">
+    <li><h3>Formem a dupla e combinem os papéis</h3>
+      <p>Uma pessoa <strong>opera</strong> o jamovi (clica, configura, roda) e a outra <strong>revisa</strong> (confere a variável, as opções marcadas e a interpretação). Depois da Parte 5 os papéis se invertem. Assim os dois praticam as duas funções.</p></li>
+    <li><h3>Abram o simulado e escolham uma versão (A a H)</h3>
+      <p>Na página do simulado, cliquem numa letra. Aparece um quadro com <strong>tudo o que é específico da sua versão</strong>: número de linhas, caso foco, cinco casos do cálculo manual, tarefa de sensibilidade e nome do arquivo. Baixem o CSV por esse quadro e usem a mesma versão até o fim.</p></li>
+    <li><h3>Preparem a base no jamovi</h3>
+      <p>Importem o CSV, confiram se o número de linhas bate com o da sua versão e ajustem o nível de medida de cada variável (nominal, ordinal, contínua, ID). Salvem logo o arquivo <code>.omv</code> com o nome sugerido e continuem salvando durante a atividade.</p></li>
+    <li><h3>Respondam parte por parte</h3>
+      <p>Cada questão traz: o que fazer, uma caixa <em>“Onde fazer no jamovi”</em>, uma lista do que relatar e a aula a revisar. As respostas são <strong>salvas automaticamente neste navegador</strong>, e o painel lateral mostra o progresso.</p>
+      <ul><li>Na Parte 1 não se usa o software: é a hora de planejar.</li>
+      <li>Nas Partes 2 a 8, cada número relatado deve vir de uma análise que está no .omv.</li>
+      <li>Na Parte 9, juntem tudo num texto curto e bem argumentado.</li></ul></li>
+    <li><h3>Revisem antes de entregar</h3>
+      <p>Confiram a lista de critérios no fim da página. O erro mais comum é <strong>deixar um filtro ligado</strong> no jamovi: desliguem todos antes de salvar o .omv final.</p></li>
+    <li><h3>Entreguem no Classroom</h3>
+      <p>Cliquem em <strong>“Salvar PDF para entregar”</strong> e escolham “Salvar como PDF”. <strong>Uma</strong> pessoa da dupla anexa no Classroom o PDF e o arquivo <code>.omv</code>.</p></li>
+  </ol>
+  <div class="callout warn"><strong>Cuidado com o navegador:</strong> as respostas ficam salvas só no computador e no navegador em uso. Se precisarem trocar de máquina, cliquem em “Cópia de segurança” e, na outra máquina, em “Restaurar”.</div>
+</section>
+
+<section>
+  <h2>Como distribuir o tempo</h2>
+  <p>É uma sugestão para não travar numa parte e faltar tempo para as outras. A pontuação ajuda a decidir onde investir mais.</p>
+  <table><thead><tr><th>Parte</th><th>Tema</th><th>O que vocês vão fazer</th><th>Tempo</th><th>Pontos</th></tr></thead><tbody>
+    <tr><td>1</td><td>Decisões antes do jamovi</td><td>Classificar variáveis, escolher testes, escrever hipóteses</td><td class="n">15 min</td><td class="n">4,0</td></tr>
+    <tr><td>2</td><td>Preparação da base</td><td>Importar, conferir e ajustar níveis de medida</td><td class="n">8 min</td><td class="n">0,5</td></tr>
+    <tr><td>3</td><td>Descrição e diagnóstico</td><td>Tabela descritiva, gráficos e um cálculo à mão</td><td class="n">15 min</td><td class="n">1,8</td></tr>
+    <tr><td>4</td><td>Escore z, IC e teste de uma média</td><td>Contas manuais com calculadora</td><td class="n">12 min</td><td class="n">2,2</td></tr>
+    <tr><td>5</td><td>Categóricas e ordinais</td><td>Qui-quadrado e tau-b de Kendall</td><td class="n">12 min</td><td class="n">2,2</td></tr>
+    <tr><td>6</td><td>Correlação</td><td>Pearson, r² e leitura do gráfico de dispersão</td><td class="n">10 min</td><td class="n">1,8</td></tr>
+    <tr><td>7</td><td>Comparação de grupos</td><td>Teste t independente e ANOVA de um fator</td><td class="n">18 min</td><td class="n">3,4</td></tr>
+    <tr><td>8</td><td>Sensibilidade</td><td>Alterar uma decisão e ver o que muda</td><td class="n">10 min</td><td class="n">1,6</td></tr>
+    <tr><td>9</td><td>Síntese e entrega</td><td>Texto de 180 a 250 palavras, revisão e envio</td><td class="n">10 min</td><td class="n">2,5</td></tr>
+    <tr><th colspan="3">Total</th><th class="n">110 min</th><th class="n">20,0</th></tr>
+  </tbody></table>
+</section>
+
+<section>
+  <h2>O que se espera das respostas</h2>
+  <p>A correção valoriza quatro coisas: a <strong>escolha</strong> adequada da análise, o <strong>procedimento</strong> registrado no .omv, o <strong>relato completo</strong> dos números e a <strong>interpretação</strong> correta e prudente.</p>
+
+  <h3>1. Relatar os números completos, não só “deu significativo”</h3>
+  <p>Os exemplos abaixo usam variáveis e números inventados, que não fazem parte das questões.</p>
+  <div class="compare">
+    <div class="bad"><b>Resposta incompleta</b>“A correlação deu significativa, então quem se desloca mais se sente menos pertencente.”</div>
+    <div class="good"><b>Resposta esperada</b>“Há correlação negativa fraca entre deslocamento e pertencimento (r = −0,21; IC 95% [−0,39; −0,02]; p = 0,03; N = 100). O tempo de deslocamento compartilha cerca de 4% da variabilidade do pertencimento (r² = 0,04). Isso indica associação, não efeito do deslocamento.”</div>
+  </div>
+
+  <h3>2. Separar significância estatística de importância prática</h3>
+  <div class="compare">
+    <div class="bad"><b>Confusão comum</b>“Como p &lt; 0,001, a diferença é enorme.”</div>
+    <div class="good"><b>Leitura correta</b>“O p-valor indica que a diferença dificilmente seria tão grande por acaso, se não houvesse diferença na população. Já o tamanho dela é medido pelo d de Cohen (d = 0,25, efeito pequeno).”</div>
+  </div>
+
+  <h3>3. Não transformar associação em causa</h3>
+  <div class="compare">
+    <div class="bad"><b>Afirmação causal indevida</b>“Ingressar por cota <em>faz</em> o estudante se sentir mais pertencente.”</div>
+    <div class="good"><b>Afirmação adequada</b>“Quem ingressou por cota apresenta, em média, maior índice de pertencimento <em>nesta base</em>. O desenho não permite atribuir a diferença à modalidade de ingresso.”</div>
+  </div>
+
+  <h3>4. Justificar as decisões</h3>
+  <p>Sempre que escolherem um caminho (Student ou Welch, Tukey ou Games-Howell, Pearson ou Kendall), digam <strong>qual evidência</strong> levou à escolha. Uma frase basta.</p>
+</section>
+
+<section>
+  <h2>Perguntas frequentes</h2>
+  <details><summary>Os números da minha dupla são diferentes dos de outra dupla. Está errado?</summary><div>Não. As oito versões da base têm dados diferentes, de propósito. Comparem procedimentos, nunca resultados.</div></details>
+  <details><summary>Posso usar duas versões diferentes?</summary><div>Não. Escolham uma e usem a mesma em todas as questões. A página avisa se vocês tentarem trocar depois de começar.</div></details>
+  <details><summary>A Parte 4 pede σ = 6, mas o desvio-padrão da minha base é outro. Qual uso?</summary><div>Usem σ = 6 nas questões 4.2 e 4.3. É uma suposição didática para praticar o teste z, em que o desvio-padrão da população é conhecido. O desvio-padrão da base entra só na 4.1.</div></details>
+  <details><summary>Fechei o navegador sem querer. Perdi tudo?</summary><div>Não, se abrirem de novo a página no mesmo computador e no mesmo navegador: as respostas reaparecem. Só se perde ao trocar de máquina, usar janela anônima ou clicar em “Apagar”.</div></details>
+  <details><summary>Não sei o que significa um símbolo ou termo.</summary><div>Consultem o <a href="glossario.html">glossário</a>, que tem todos os termos e símbolos usados no simulado, com exemplos. Para retomar o conteúdo, usem os links das aulas no Classroom.</div></details>
+  <details><summary>Posso imprimir o caderno em papel?</summary><div>Sim: há uma <a href="caderno_simulado_para_impressao.pdf">versão em PDF para impressão</a>, útil para planejar as respostas. A entrega, porém, é feita pela página online.</div></details>
+  <details><summary>Preciso colar tabelas do jamovi no caderno?</summary><div>Não. Transcrevam apenas os números pedidos em cada questão. O .omv é a prova de que as análises foram feitas.</div></details>
+</section>
+
+<section class="final">
+  <h2>Prontos?</h2>
+  <p>Escolham a versão, baixem a base e comecem pela Parte 1. Bom trabalho!</p>
+  <div class="btns" style="justify-content:center"><a class="btn main" href="index.html">Começar o simulado</a></div>
+</section>
+<footer>Simulado de revisão — Métodos Quantitativos — 25/11/2026</footer>
+</div>
+</body>
+</html>

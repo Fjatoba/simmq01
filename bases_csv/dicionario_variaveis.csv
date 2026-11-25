@@ -1,0 +1,19 @@
+﻿variavel,rotulo,tipo_jamovi,valores_unidade,observacao
+id_estudante,Identificador fictício,ID,"A001, A002...",Não analisar como variável substantiva.
+versao,Versão da base,Nominal,A a H,Confirme antes de iniciar.
+rede_ensino_medio,Rede predominante do ensino médio,Nominal,Pública; Privada,Categorias sem ordem.
+modalidade_ingresso,Modalidade de ingresso,Nominal,Ampla concorrência; Cota,Não implica causalidade.
+situacao_trabalho,Situação de trabalho remunerado,Nominal,Não trabalha; Informal; Formal,Três grupos.
+turno_curso,Turno predominante do curso,Nominal,Diurno; Noturno,Dois grupos.
+bolsa_permanencia,Recebe bolsa de permanência,Nominal,Não; Sim,Dois grupos independentes.
+anos_estudo_responsavel,Anos de estudo da pessoa responsável,Contínua,4 a 20,Tratada como quantitativa para a atividade.
+apoio_financeiro,Suficiência do apoio financeiro,Ordinal,1=Insuficiente; 2=Parcial; 3=Suficiente,Preservar a ordem 1<2<3.
+dificuldade_permanencia,Dificuldade financeira de permanência,Ordinal,1=Baixa; 2=Intermediária; 3=Alta,Preservar a ordem 1<2<3.
+satisfacao_curso,Satisfação com o curso,Ordinal,1=Muito baixa ... 5=Muito alta,Item único; não é escala validada.
+horas_trabalho_semana,Horas de trabalho por semana,Contínua,0 a 50,Zero significa que não trabalha.
+horas_estudo_semana,Horas de estudo por semana,Contínua,1 a 27,Variável quantitativa principal.
+deslocamento_min,Tempo de deslocamento até o curso,Contínua,Minutos,Distribuição assimétrica.
+renda_familiar_pc,Renda familiar per capita,Contínua,Reais,Inclui um valor extremo intencional.
+indice_capital_cultural,Índice didático de capital cultural,Contínua,10 a 100,Índice simulado; não validado.
+indice_pertencimento,Índice didático de pertencimento,Contínua,0 a 100,Índice simulado; não validado.
+nota_metodos,Nota em Métodos Quantitativos,Contínua,0 a 10,Resultado acadêmico simulado.

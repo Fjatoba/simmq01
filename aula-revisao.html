@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aula de revisão de Métodos Quantitativos com exemplos resolvidos e leitura de resultados no jamovi.">
+  <title>Aula de revisão | Métodos Quantitativos</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #202b30;
+      --muted: #44575a;
+      --deep: #123f39;
+      --green: #1b5f52;
+      --light: #edf5ef;
+      --sand: #f6f4ed;
+      --line: #cfdbd4;
+      --paper: #fff;
+      --sans: system-ui, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 1.05rem/1.65 var(--sans); }
+    .wrap { max-width: 75rem; margin: 0 auto; padding-inline: clamp(1rem, 4vw, 3rem); }
+    .skip { position: absolute; top: .5rem; left: .5rem; transform: translateY(-150%); padding: .45rem .75rem; background: white; color: var(--deep); z-index: 2; }
+    .skip:focus { transform: translateY(0); }
+    a { color: var(--green); text-underline-offset: .18em; }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #ad5818; outline-offset: 3px; }
+    .masthead { background: var(--deep); color: white; }
+    .masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: .7rem 1rem; flex-wrap: wrap; padding-block: .75rem; }
+    .masthead strong { font-size: .95rem; }
+    button { font: 600 .85rem/1.2 var(--sans); border: 1px solid #b7d6c8; background: transparent; color: white; border-radius: .3rem; padding: .45rem .75rem; cursor: pointer; }
+    button:hover { background: #276356; }
+    .hero { background: var(--light); border-bottom: 1px solid var(--line); }
+    .hero .wrap { padding-block: clamp(2rem, 6vw, 4.25rem); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 700; color: var(--deep); line-height: 1.12; }
+    h1 { max-width: 17ch; margin-bottom: 1rem; font-size: clamp(2.5rem, 7vw, 4.65rem); letter-spacing: -.037em; }
+    h2 { margin-bottom: .9rem; font-size: clamp(1.75rem, 4vw, 2.3rem); letter-spacing: -.024em; }
+    h3 { margin: 1.65rem 0 .55rem; color: var(--deep); font-size: 1.12rem; line-height: 1.35; }
+    p { margin-bottom: .9rem; }
+    .hero p { max-width: 60ch; margin-bottom: .6rem; font-size: 1.12rem; }
+    .hero .duration { color: var(--green); font-size: .88rem; font-weight: 700; margin-bottom: 1rem; }
+    .layout { display: grid; grid-template-columns: minmax(11rem, 15rem) minmax(0, 46rem); gap: clamp(1rem, 4vw, 4rem); align-items: start; padding-block: 2rem 3rem; }
+    nav { position: sticky; top: 1rem; border-left: 2px solid var(--line); padding-left: 1rem; }
+    nav p { margin-bottom: .45rem; color: var(--deep); font-size: .9rem; font-weight: 700; }
+    nav ol { margin: 0; padding-left: 1.35rem; font-size: .88rem; line-height: 1.45; }
+    nav li { margin: .48rem 0; }
+    nav a { text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+    article { min-width: 0; }
+    article > section { padding-block: 1.9rem 1.25rem; border-bottom: 1px solid var(--line); scroll-margin-top: 1rem; }
+    article > section:first-child { padding-top: 0; }
+    .step { margin-bottom: .4rem; color: var(--green); font-weight: 700; font-size: .82rem; letter-spacing: .035em; }
+    .example, .jamovi { margin: 1.1rem 0; padding: 1rem 1.1rem; border-radius: .3rem; }
+    .example { background: var(--sand); border-left: 3px solid #987345; }
+    .jamovi { background: var(--light); border-left: 3px solid var(--green); }
+    .example h3, .jamovi h3 { margin: 0 0 .5rem; }
+    .example > :last-child, .jamovi > :last-child { margin-bottom: 0; }
+    .math { margin: .9rem 0; padding: .58rem .74rem; background: white; border: 1px solid var(--line); border-radius: .25rem; font-variant-numeric: tabular-nums; font-weight: 650; overflow-wrap: anywhere; }
+    .table-wrap { margin: .9rem 0; max-width: 100%; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .93rem; line-height: 1.45; font-variant-numeric: tabular-nums; }
+    caption { text-align: left; color: var(--muted); font-size: .88rem; margin-bottom: .35rem; }
+    th, td { padding: .46rem .62rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    thead th { background: var(--light); color: var(--deep); }
+    tbody th { font-weight: 650; }
+    ul, ol { padding-left: 1.35rem; margin: .55rem 0 .95rem; }
+    li { margin: .32rem 0; }
+    blockquote { margin: .85rem 0; padding-left: .85rem; border-left: 2px solid var(--green); color: var(--deep); }
+    details { margin: .9rem 0; border: 1px solid var(--line); border-radius: .3rem; padding: .56rem .8rem; }
+    summary { cursor: pointer; color: var(--deep); font-weight: 650; }
+    details p { margin: .58rem 0 .15rem; }
+    code { font-size: .93em; }
+    .source-note { color: var(--muted); font-size: .88rem; }
+    .source-note li { margin: .2rem 0; }
+    @media (max-width: 48rem) {
+      .layout { display: block; padding-top: 1.2rem; }
+      nav { position: static; margin-bottom: 1.5rem; }
+      nav ol { columns: 2; column-gap: 1.3rem; }
+      nav li { break-inside: avoid; }
+      th, td { padding: .42rem .38rem; }
+    }
+    @media (max-width: 25rem) { nav ol { columns: 1; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      @page { size: A4; margin: 14mm; }
+      body { font-size: 10.5pt; line-height: 1.45; }
+      .masthead, .skip, nav { display: none; }
+      .wrap { padding: 0; }
+      .hero { background: white; }
+      .hero .wrap { padding-block: 0 .7rem; }
+      h1 { font-size: 31pt; max-width: none; }
+      h2 { font-size: 20pt; }
+      h1, h2, h3, summary { break-after: avoid; }
+      .layout { display: block; padding-block: .5rem 0; }
+      article > section { padding-block: 1rem .65rem; }
+      tr, .math, details { break-inside: avoid; }
+      thead { display: table-header-group; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+  <header>
+    <div class="masthead">
+      <div class="wrap">
+        <strong>Métodos Quantitativos</strong>
+        <button type="button" onclick="window.print()">Imprimir ou salvar em PDF</button>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="wrap">
+        <p class="duration">Aula de revisão · 60 minutos</p>
+        <h1>Da pergunta à conclusão</h1>
+        <p>Como transformar uma pergunta de pesquisa em uma análise que você consegue explicar? Vamos percorrer exemplos das aulas, fazer as contas essenciais e aprender a ler o que aparece no jamovi.</p>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo" class="wrap layout">
+    <nav aria-label="Sumário">
+      <p>Nesta aula</p>
+      <ol>
+        <li><a href="#mensuracao">Pergunta e mensuração</a></li>
+        <li><a href="#descricao">Centro e dispersão</a></li>
+        <li><a href="#normal">Curva normal e escore z</a></li>
+        <li><a href="#inferencia">Erro-padrão, IC e teste</a></li>
+        <li><a href="#categorias">Qui-quadrado e Kendall</a></li>
+        <li><a href="#pearson">Correlação de Pearson</a></li>
+        <li><a href="#medias">Teste t e ANOVA</a></li>
+        <li><a href="#sintese">Síntese e exercício final</a></li>
+      </ol>
+    </nav>
+
+    <article aria-label="Aula de revisão">
+      <section id="mensuracao">
+        <p class="step">0–8 min</p>
+        <h2>Comece pelo que você quer saber</h2>
+        <p>Imagine que você quer estudar desigualdade educacional. Antes de abrir o jamovi, pergunte <strong>quem é observado, o que foi medido e sobre quem você gostaria de concluir</strong>. Se cada linha representa uma pessoa entrevistada, a pessoa é a <strong>unidade de análise</strong>. As pessoas efetivamente observadas compõem a amostra. A população de interesse é o conjunto ao qual a pergunta se refere.</p>
+        <p>O modo de medir muda a análise. Podemos registrar a escolaridade como <em>nível concluído</em> ou como <em>anos de estudo</em>. No primeiro caso, conseguimos ordenar as respostas. No segundo, conseguimos também calcular a diferença em anos.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="Tipos de mensuração">
+          <table>
+            <caption>O que cada escala permite observar</caption>
+            <thead><tr><th scope="col">Escala</th><th scope="col">Exemplo</th><th scope="col">O que faz sentido fazer</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Nominal</th><td>Município: Recife, Olinda, Jaboatão</td><td>Contar casos e comparar percentuais.</td></tr>
+              <tr><th scope="row">Ordinal</th><td>Nível concluído: fundamental, médio, superior</td><td>Ordenar as categorias e examinar a mediana ou a distribuição.</td></tr>
+              <tr><th scope="row">Intervalar</th><td>Temperatura em °C</td><td>Comparar diferenças. A escala usa um zero convencional.</td></tr>
+              <tr><th scope="row">Razão</th><td>Anos de estudo</td><td>Comparar diferenças e razões. Zero indica ausência da quantidade medida.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="example">
+          <h3>O que fazer com quem ganha exatamente três salários mínimos?</h3>
+          <p>As categorias «até 3» e «de 3 a 5» se sobrepõem no valor 3. Uma solução é usar <em>menos de 3</em>, <em>de 3 a menos de 5</em>, <em>de 5 a menos de 10</em> e <em>10 ou mais</em>. Cada renda válida cabe em uma só faixa, e todas as rendas válidas têm lugar.</p>
+        </div>
+        <p>No jamovi, confira o <strong>tipo de dado</strong> e o <strong>nível de medida</strong> de cada coluna. Se 1 significa Recife, 2 Olinda e 3 Jaboatão, a variável continua nominal. As opções do programa incluem <em>Contínua</em> para variáveis quantitativas tratadas numericamente. A distinção conceitual entre intervalo e razão continua relevante na interpretação.</p>
+        <details><summary>Confira sua leitura: a média dos códigos de município faz sentido?</summary><p>Os números identificam categorias. A média mudaria se os códigos fossem trocados, mesmo com os mesmos municípios observados. Uma tabela de frequências responde melhor à pergunta sobre a distribuição dos casos.</p></details>
+      </section>
+
+      <section id="descricao">
+        <p class="step">8–17 min</p>
+        <h2>Uma média igual pode esconder dois grupos diferentes</h2>
+        <p>A <strong>média</strong> resume o centro pelo total dividido pelo número de casos. A <strong>mediana</strong> localiza o meio depois que os dados são ordenados, usando a média dos dois valores centrais quando o número de casos é par. A <strong>moda</strong> mostra o valor ou a categoria mais frequente. Depois de localizar o centro, pergunte quanto os casos se afastam dele.</p>
+        <div class="example">
+          <h3>As equipes de boliche da aula</h3>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Pontuações das equipes">
+            <table>
+              <thead><tr><th scope="col">Equipe</th><th scope="col">Pontuações</th><th scope="col">Média</th><th scope="col">Amplitude</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">A</th><td>4, 5, 6, 7, 8</td><td>6</td><td>8 − 4 = 4</td></tr>
+                <tr><th scope="row">B</th><td>0, 3, 6, 9, 12</td><td>6</td><td>12 − 0 = 12</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>A equipe A é mais regular. Para ver por quê, subtraia a média de cada ponto. Em A, os desvios são −2, −1, 0, 1 e 2. Somá-los daria zero. Elevá-los ao quadrado permite somar os afastamentos sem que os sinais se anulem.</p>
+          <p class="math">Soma dos quadrados em A = 4 + 1 + 0 + 1 + 4 = 10</p>
+          <p>Se os cinco resultados são todos os que queremos descrever, o painel da aula divide por 5 e obtém variância 2. Se os tratamos como <strong>amostra</strong>, usamos 5 − 1. A variância amostral é 10 ÷ 4 = 2,50 e o desvio-padrão é √2,50 ≈ <strong>1,58 ponto</strong>. A raiz devolve a unidade original.</p>
+        </div>
+        <p>Na simulação de renda da aula, quatro rendas permanecem próximas e a maior aumenta. A média sobe porque esse valor entra na soma. A mediana pode continuar igual, pois o valor central da lista ordenada permanece no mesmo lugar. Em dados reais, um extremo pode representar um caso legítimo e importante para entender a desigualdade.</p>
+        <aside class="jamovi">
+          <h3>No jamovi</h3>
+          <p>Em <strong>Exploração → Descritivas</strong>, comece pelo número de casos (<var>N</var>), pela média, pela mediana e pelo DP. Use o histograma para ver a forma, o boxplot para localizar valores distantes e o Q–Q para comparar os quantis observados aos esperados sob uma distribuição normal. Na prática da aula, Shapiro–Wilk complementa a inspeção dos gráficos. Um p pequeno indica evidência contra a normalidade sob as condições do teste.</p>
+          <p>No exercício sobre livros lidos, a coluna computada <code>LOG10(Q18 + 1)</code> comprime a cauda de valores altos. O <code>+1</code> permite incluir quem leu zero livros, pois log10(0) é indefinido. Compare a forma antes e depois e identifique em qual escala está interpretando os resultados.</p>
+        </aside>
+      </section>
+
+      <section id="normal">
+        <p class="step">17–21 min</p>
+        <h2>A mesma nota pode representar duas posições</h2>
+        <p>O <strong>escore z individual</strong> mede a distância de uma observação à média em unidades de desvio-padrão. Subtraia a média do valor observado e divida pelo DP do grupo de referência. O sinal indica o lado da média e o módulo indica a distância.</p>
+        <div class="example">
+          <h3>Lúcia e Júlia tiraram 73</h3>
+          <p>A média foi 53 nas duas disciplinas. Em História, o DP foi 22,7. Em Biologia, o DP foi 18,3. As duas estudantes ficaram 20 pontos acima da média. Agora coloque essa diferença na escala de cada turma.</p>
+          <ol>
+            <li><strong>Lúcia, em História:</strong> z = (73 − 53) ÷ 22,7 ≈ <strong>0,88</strong>.</li>
+            <li><strong>Júlia, em Biologia:</strong> z = (73 − 53) ÷ 18,3 ≈ <strong>1,09</strong>.</li>
+          </ol>
+          <p>Júlia ficou mais acima da média da própria turma em unidades de DP. A diferença de 20 pontos representa uma distância relativamente maior onde as notas variam menos.</p>
+        </div>
+        <p>Quando a distribuição é aproximadamente normal, a área sob a curva fornece proporções do modelo. Na normal padrão, a média é zero e o DP é um. Por simetria, metade da área fica de cada lado de zero e cerca de 68% fica entre −1 e +1. <strong>Padronizar muda a escala</strong>. A forma original da distribuição continua a mesma.</p>
+        <p>Com a normal como modelo, a área à esquerda de z = 0,88 é aproximadamente 81%. Acima da nota de Lúcia, ficam cerca de 19%. Para z = 1,09, ficam aproximadamente 86% à esquerda e 14% à direita. Essas porcentagens vêm da curva normal. Contar as notas acima de 73 na turma seria uma forma de obter uma proporção observada.</p>
+        <details><summary>O que significa z = −1,5?</summary><p>O valor está 1,5 desvios-padrão abaixo da média de referência. Para converter essa posição em área normal, primeiro verifique se o modelo é razoável para o problema.</p></details>
+      </section>
+
+      <section id="inferencia">
+        <p class="step">21–31 min</p>
+        <h2>Da dispersão dos casos à incerteza da média</h2>
+        <p>Se três equipes sorteiam pessoas da mesma população, elas provavelmente obtêm médias diferentes. O <strong>DP</strong> descreve a variação entre as pessoas. O <strong>erro-padrão (EP)</strong> descreve quanto a média tenderia a oscilar entre amostras comparáveis. Sob as condições do modelo, para o mesmo DP, amostras maiores dão médias mais precisas. A qualidade da seleção continua importante para generalizar.</p>
+        <p>O <strong>Teorema Central do Limite</strong> ajuda a entender por que, sob condições adequadas, a distribuição das <em>médias amostrais</em> pode se aproximar da normal à medida que a amostra cresce. Isso é uma afirmação sobre a distribuição do estimador em amostras repetidas.</p>
+        <div class="example">
+          <h3>Observatório da Vida na Pós</h3>
+          <p>Uma amostra de 64 pós-graduandos teve média de 22,5 horas semanais de trabalho remunerado e DP amostral de 8 horas. O EP estimado é 8 ÷ √64 = <strong>1 hora</strong>. Seguindo a aproximação normal usada nesse exemplo da aula, a margem do IC de 95% é 1,96 × 1 = 1,96 hora.</p>
+          <p class="math">IC95% ≈ 22,5 ± 1,96 = [20,54 h, 24,46 h]</p>
+          <p>Se repetíssemos a amostragem e construíssemos os intervalos do mesmo modo, aproximadamente 95% deles conteriam a média populacional, sob as condições do modelo. O número 95% descreve a cobertura do procedimento ao longo de muitas amostras. Quando o DP populacional é desconhecido, a distribuição t é a referência usual para construir um IC de média nas condições do teste t. Aqui seguimos a aproximação didática da aula.</p>
+        </div>
+        <div class="example">
+          <h3>Programa Permanecer: a média mudou?</h3>
+          <p>A referência histórica é <strong>18 h</strong>. Em 100 estudantes, a média observada foi <strong>16,8 h</strong>. Para o cálculo didático, tome 6 h como DP populacional conhecido. A palavra <em>mudou</em> abrange valores para cima ou para baixo, por isso o teste é bilateral.</p>
+          <ol>
+            <li><strong>Declare as hipóteses.</strong> H₀: μ = 18 h. H₁: μ ≠ 18 h.</li>
+            <li><strong>Calcule o EP.</strong> 6 ÷ √100 = <strong>0,60 h</strong>.</li>
+            <li><strong>Localize a média observada sob H₀.</strong> z = (16,8 − 18) ÷ 0,60 = <strong>−2,00</strong>. Aqui a unidade de comparação é o erro-padrão da média.</li>
+            <li><strong>Some as duas caudas.</strong> A área abaixo de −2,00 é cerca de 0,02275. A área acima de +2,00 é igual. Logo, <strong>p ≈ 0,0455</strong>.</li>
+            <li><strong>Decida e interprete.</strong> A 5%, rejeitamos H₀. A 1%, os mesmos dados não atingem o critério de rejeição. O IC95% pelo mesmo método é cerca de [15,62 h, 17,98 h], deixando 18 h logo acima do limite superior.</li>
+          </ol>
+          <p>O p-valor é a probabilidade, calculada sob H₀ e as condições do teste, de obter um resultado pelo menos tão extremo quanto o observado. Para discutir se uma diferença de 1,2 hora importa, precisamos de um critério substantivo. Para atribuir a diferença ao programa, precisamos de um desenho de pesquisa adequado.</p>
+        </div>
+        <p><strong>Erro tipo I:</strong> concluir que a média mudou quando ela continua em 18 h. O nível α controla a frequência de falso positivo sob H₀. <strong>Erro tipo II:</strong> deixar de detectar uma mudança real. O <strong>poder</strong> é a chance de detectar um efeito específico quando ele existe.</p>
+      </section>
+
+      <section id="categorias">
+        <p class="step">31–40 min</p>
+        <h2>Com categorias, o denominador e a ordem importam</h2>
+        <p>Primeiro veja as categorias, depois escolha a pergunta. Se você quer saber se duas variáveis categóricas estão associadas, pode começar pela tabela de contingência e pelo <strong>qui-quadrado de independência</strong>. Se ambas são ordinais e você quer saber se posições mais altas em uma acompanham posições mais altas ou mais baixas na outra, use <strong>Tau-b de Kendall</strong>.</p>
+        <div class="example">
+          <h3>Rede escolar e acesso ao preparatório</h3>
+          <p>Na prática da aula, 32 dos 240 estudantes da rede pública fizeram preparatório, contra 184 dos 240 da rede privada. A tabela permite comparar a frequência de acesso <em>dentro</em> de cada rede.</p>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Rede e acesso ao preparatório">
+            <table>
+              <thead><tr><th scope="col">Rede</th><th scope="col">Fez</th><th scope="col">Não fez</th><th scope="col">Total</th><th scope="col">% que fez</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Pública</th><td>32</td><td>208</td><td>240</td><td>13,3%</td></tr>
+                <tr><th scope="row">Privada</th><td>184</td><td>56</td><td>240</td><td>76,7%</td></tr>
+                <tr><th scope="row">Total</th><td>216</td><td>264</td><td>480</td><td>45,0%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Sob H₀, rede e acesso são independentes. Se ambas as redes seguissem a proporção geral de 216 em 480, o número esperado de estudantes com preparatório em cada rede seria <strong>240 × 216 ÷ 480 = 108</strong>. Para quem não fez, seriam 132 em cada rede. É essa expectativa que comparamos com os números observados.</p>
+          <p>O teste soma as contribuições (observado − esperado)² ÷ esperado das quatro células. A tabela dá <strong>χ²(1) ≈ 194,48, p &lt; 0,001</strong>, sem correção de continuidade. As esperadas são altas neste exemplo. Em uma tabela 2 × 2, o V de Cramér é √(χ² ÷ N). Aqui, √(194,48 ÷ 480) ≈ <strong>0,637</strong>. O V resume a magnitude e os percentuais por linha mostram em qual grupo o acesso foi maior.</p>
+        </div>
+        <div class="example">
+          <h3>Suficiência do apoio e dificuldade de permanência</h3>
+          <p>Na prática de Kendall, apoio vai de insuficiente a suficiente e dificuldade vai de baixa a alta. A proporção com dificuldade alta cai de <strong>85%</strong> para <strong>10%</strong> e depois para <strong>5%</strong> à medida que aumenta a suficiência do apoio.</p>
+          <p>Tau-b compara pares de estudantes. Se quem ocupa a posição mais alta em apoio também ocupa a mais alta em dificuldade, o par é concordante. Se ocupa uma posição mais baixa em dificuldade, é discordante. O coeficiente ajusta os empates, comuns em escalas com três categorias.</p>
+          <p>Nessa prática, <strong>τ<sub>b</sub> = −0,773</strong>. O sinal negativo acompanha a queda vista nos percentuais. Se invertermos apenas uma escala como teste de sensibilidade, o sinal passa a positivo. O módulo e o p bilateral ficam iguais porque a relação observada é a mesma e apenas a orientação da escala mudou.</p>
+        </div>
+        <aside class="jamovi">
+          <h3>No jamovi</h3>
+          <p>Para qui-quadrado, abra <strong>Frequências → Tabelas de contingência</strong>. Peça contagens observadas e esperadas, percentuais por linha, χ² e V de Cramér. Se houver esperadas muito baixas, avalie se a aproximação é adequada. Em uma tabela 2 × 2, o teste exato de Fisher é uma alternativa ensinada para situações com contagens escassas. Para Kendall, confira primeiro a ordem das categorias e então solicite Tau-b para as duas variáveis ordinais.</p>
+        </aside>
+      </section>
+
+      <section id="pearson">
+        <p class="step">40–45 min</p>
+        <h2>Olhe a nuvem antes de interpretar a correlação</h2>
+        <p>A correlação de Pearson resume a <strong>direção</strong> e a <strong>força da associação linear</strong> entre duas variáveis quantitativas. Em um gráfico de dispersão, cada ponto representa um caso. Observe se a nuvem tende a subir ou descer, se uma reta descreve bem o padrão e se um ponto isolado parece puxar o resultado. Uma relação curva pode produzir um <var>r</var> perto de zero.</p>
+        <div class="example">
+          <h3>Anos de estudo e capital cultural</h3>
+          <p>Na aula, a base com <strong>120 pessoas</strong> apresentou <strong>r = 0,662</strong> e <strong>p &lt; 0,001</strong>. O sinal positivo indica que maiores valores de escolaridade tendem a acompanhar maiores valores de capital cultural. Ao elevar <var>r</var> ao quadrado, obtemos 0,662² ≈ 0,438, ou cerca de <strong>44% de variação linear compartilhada</strong>.</p>
+          <blockquote>Na amostra da aula, pessoas com mais anos de estudo tenderam a apresentar maior capital cultural. A origem social é uma possível influência sobre as duas medidas e ajuda a explicar por que a associação, por si só, não identifica um efeito causal.</blockquote>
+        </div>
+        <aside class="jamovi">
+          <h3>No jamovi</h3>
+          <p>Use <strong>Regressão → Matriz de correlação</strong>. Selecione Pearson, <var>N</var>, <var>p</var>, IC de 95% e o gráfico de dispersão nas opções disponíveis. Leia o coeficiente como padrão observado, o IC como informação sobre precisão e o p como evidência em relação à hipótese de correlação nula.</p>
+        </aside>
+        <details><summary>Um ponto isolado sempre aumenta a correlação?</summary><p>O efeito depende de onde ele aparece. Um ponto pode reforçar a tendência, enfraquecê-la ou até mudar o sinal. Uma comparação com e sem o caso ajuda a avaliar a sensibilidade. Preserve os dados originais e explique o que mudou.</p></details>
+      </section>
+
+      <section id="medias">
+        <p class="step">45–57 min</p>
+        <h2>Para comparar médias, conte quantos grupos há</h2>
+        <p>Em uma comparação de médias, o <strong>desfecho é quantitativo</strong> e o <strong>agrupamento é categórico</strong>. Com dois grupos independentes, o teste t compara suas médias. Com três ou mais, a ANOVA de um fator faz primeiro uma comparação global. Confira se os grupos são independentes pelo desenho da pesquisa e examine a dispersão, a forma e valores extremos dentro de cada grupo.</p>
+        <div class="example">
+          <h3>Dois grupos: renda mensal na aula de jamovi</h3>
+          <p>As médias observadas foram R$ 2.625 para homens e R$ 2.071 para mulheres. Tomando homens menos mulheres como ordem de comparação, a diferença foi <strong>R$ 554</strong>. A pergunta inferencial é se o padrão observado oferece evidência de diferença entre as médias populacionais sob o modelo.</p>
+          <ol>
+            <li>O teste de Levene teve <strong>p = 0,002</strong>, indicando evidência de heterogeneidade. Pelo procedimento trabalhado na aula, lemos a linha de <strong>Welch</strong>.</li>
+            <li>A saída apresenta <strong>t(304) = 3,90, p &lt; 0,001</strong>. O IC95% da diferença vai de <strong>R$ 274 a R$ 834</strong> e permanece acima de zero.</li>
+            <li>O <strong>d de Cohen ≈ 0,43</strong> expressa a diferença em unidades padronizadas. Para avaliar a relevância social, volte à diferença em reais e ao contexto da amostra.</li>
+          </ol>
+          <p>O resultado descreve uma diferença entre os grupos analisados. Ocupação e jornada são exemplos de fatores que podem contribuir para o padrão e exigem investigação própria.</p>
+        </div>
+        <div class="example">
+          <h3>Três grupos: água, suco e café</h3>
+          <p>A aula compara os tempos de reação de três grupos. As médias parecem próximas. Para decidir se há evidência de diferença, comparamos a variação entre os grupos com a variação dentro deles.</p>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Tempos de reação por bebida">
+            <table>
+              <caption>Os 15 tempos de reação apresentados na aula</caption>
+              <thead><tr><th scope="col">Bebida</th><th scope="col">Valores observados</th><th scope="col">Média</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Água</th><td>29, 30, 31, 31 e 29</td><td>30,0</td></tr>
+                <tr><th scope="row">Suco</th><td>28, 29, 27, 30 e 29</td><td>28,6</td></tr>
+                <tr><th scope="row">Café</th><td>25, 28, 29, 27 e 29</td><td>27,6</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Para refazer a análise no jamovi, crie duas colunas, <em>Bebida</em> (nominal) e <em>Tempo</em> (contínua). Use uma linha por tempo e repita o nome da bebida nas cinco linhas do grupo. Você terá 15 linhas.</p>
+          <p>Levene apresentou <strong>p = 0,691</strong>. Seguindo a regra da aula, interpretamos a ANOVA convencional. O teste global deu <strong>F(2, 12) = 4,27, p = 0,040</strong>. Portanto, há evidência de que <strong>pelo menos uma média difere</strong>.</p>
+          <p>Quais grupos diferem? O pós-teste de <strong>Tukey</strong> identificou diferença entre Água e Café, com <strong>p ajustado = 0,033</strong>. As comparações Água × Suco e Café × Suco não atingiram o nível de significância. O teste global responde se há alguma diferença. Cada comparação ajustada responde sobre um par específico.</p>
+          <p>Na ANOVA convencional, o eta quadrado (η²) é a soma de quadrados entre grupos dividida pela soma de quadrados total. A partir dos 15 tempos, obtemos 14,53 ÷ 34,93 ≈ <strong>0,416</strong>. Cerca de 42% da variação observada nesses tempos está associada às diferenças entre os grupos.</p>
+          <p>No exercício de <strong>região × renda</strong>, a aula também mostra a rota para variâncias heterogêneas. Leia a <strong>ANOVA de Welch</strong> no resultado global. Se o global for significativo, use <strong>Games–Howell</strong> para comparar os pares.</p>
+        </div>
+        <aside class="jamovi">
+          <h3>No jamovi</h3>
+          <p>Para dois grupos, use <strong>Testes t → Amostras independentes</strong>. Observe médias e DP, a linha escolhida, a diferença com IC e o tamanho de efeito. Para três ou mais grupos, abra <strong>ANOVA → ANOVA de um fator</strong>. Comece pelas descritivas e pressupostos, leia o resultado global e só então interprete as comparações ajustadas.</p>
+        </aside>
+      </section>
+
+      <section id="sintese">
+        <p class="step">57–60 min</p>
+        <h2>Escreva uma conclusão que volte à pergunta</h2>
+        <p>Antes de encerrar, diga em uma frase <strong>o que foi comparado</strong>. Em seguida, apresente o número que mostra a direção e a magnitude do resultado. Acrescente a evidência e a incerteza disponíveis. Termine com uma interpretação em linguagem comum e com um limite que realmente importa para a pergunta.</p>
+        <p>Se você comparar a análise original com uma versão recodificada ou sem um valor extremo, faça uma previsão antes de mudar os dados. Preserve a base original, registre a alteração e mostre os dois resultados. A estabilidade ou a mudança ajuda a entender de que depende a conclusão.</p>
+        <div class="example">
+          <h3>Quando muda a forma de medir, muda o teste?</h3>
+          <p>Você queria relacionar anos de escolaridade a um índice numérico. Agora registra escolaridade como fundamental, médio ou superior e dificuldade de permanência como baixa, média ou alta. Qual medida escolheria para investigar a <em>direção</em> da associação? Diga também o que um sinal positivo indicaria com as escalas em ordem crescente.</p>
+          <details><summary>Ver resposta comentada</summary><p>Tau-b de Kendall usa a ordem das duas variáveis e ajusta os empates. Um sinal positivo indicaria que níveis mais altos de escolaridade tendem a acompanhar níveis mais altos de dificuldade. Antes de escrever a conclusão, confirme a ordem dos códigos e fique atento ao que as duas medidas de fato representam.</p></details>
+        </div>
+        <h3>Materiais das aulas utilizados</h3>
+        <ul class="source-note">
+          <li>Aula de revisão do simulado (60 min), <em>Variáveis e níveis de mensuração</em> e <em>Centro e dispersão em dados sociais</em>.</li>
+          <li><em>Curva normal, escore z e probabilidades</em>, <em>Erro padrão e IC</em> e PBL <em>Evidência, incerteza e teste de hipótese</em>.</li>
+          <li><em>Exercícios de Kendall e qui-quadrado</em>, <em>Correlação e R de Pearson</em> e <em>Estatísticas descritivas, transformação log10 e qui-quadrado</em>.</li>
+          <li><em>Comparando médias</em>, aula passo a passo e exercício guiado de teste t e ANOVA no jamovi.</li>
+        </ul>
+      </section>
+    </article>
+  </main>
+  <script>
+    let closedBeforePrint = [];
+    window.addEventListener('beforeprint', () => {
+      closedBeforePrint = [...document.querySelectorAll('details:not([open])')];
+      closedBeforePrint.forEach(item => { item.open = true; });
+    });
+    window.addEventListener('afterprint', () => {
+      closedBeforePrint.forEach(item => { item.open = false; });
+      closedBeforePrint = [];
+    });
+  </script>
+</body>
+</html>
